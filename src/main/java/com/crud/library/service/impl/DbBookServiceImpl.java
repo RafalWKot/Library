@@ -39,5 +39,8 @@ public class DbBookServiceImpl implements DbBookService {
         return bookRepository.findById(bookId).orElseThrow(BookNotFoundException::new);
     }
 
-
+    @Override
+    public void deleteBook(Long bookId) {
+        bookRepository.delete(bookId);
+    }
 }

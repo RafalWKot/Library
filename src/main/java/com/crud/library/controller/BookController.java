@@ -34,4 +34,14 @@ public class BookController {
     public void addNewBook(@RequestBody BookDTO bookDTO) {
         dbBookService.saveBook(bookMapper.mapToBook(bookDTO));
     }
+
+    @RequestMapping(method = RequestMethod.PUT, consumes = APPLICATION_JSON_VALUE)
+    public BookDTO updateBook(@RequestBody BookDTO bookDTO){
+        return bookMapper.mapToDto(dbBookService.saveBook(bookMapper.mapToBook(bookDTO)));
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+    public void deleteBook(@PathVariable("id") Long idBook) {
+        dbBookService.deleteBook(idBook);
+    }
 }

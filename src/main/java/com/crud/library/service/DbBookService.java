@@ -13,4 +13,5 @@ public interface DbBookService {
 
     Book saveBook(Book book);
 
+    void deleteBook(Long bookId);
 }
