@@ -33,6 +33,4 @@ public class DbBookCopyServiceImpl implements DbBookCopyService {
         return bookCopyRepository.save(bookCopy);
     }
 
-
-
 }

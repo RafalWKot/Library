@@ -38,7 +38,7 @@ public class UserController {
         dbUserService.saveUser(userMapper.mapToUser(userDTO));
     }
 
-    @RequestMapping(method = RequestMethod.POST, consumes = APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.PUT, consumes = APPLICATION_JSON_VALUE)
     public UserDTO updataUser(@RequestBody UserDTO userDTO) {
 
         return userMapper.mapToUserDTO(dbUserService.saveUser(userMapper.mapToUser(userDTO)));
