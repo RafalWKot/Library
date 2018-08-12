@@ -39,4 +39,9 @@ public class DbUserServiceImpl implements DbUserService {
         }
         return userRepository.save(user);
     }
+
+    @Override
+    public void delete(Long userId) {
+        userRepository.delete(userId);
+    }
 }

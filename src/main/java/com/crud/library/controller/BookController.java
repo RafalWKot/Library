@@ -27,7 +27,7 @@ public class BookController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public BookDTO getBookById(@PathVariable("id") Long idBook) {
-        return bookMapper.mapToDto(dbBookService.getBook(idBook));
+        return bookMapper.mapToBookDto(dbBookService.getBook(idBook));
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = APPLICATION_JSON_VALUE)
@@ -37,7 +37,7 @@ public class BookController {
 
     @RequestMapping(method = RequestMethod.PUT, consumes = APPLICATION_JSON_VALUE)
     public BookDTO updateBook(@RequestBody BookDTO bookDTO){
-        return bookMapper.mapToDto(dbBookService.saveBook(bookMapper.mapToBook(bookDTO)));
+        return bookMapper.mapToBookDto(dbBookService.saveBook(bookMapper.mapToBook(bookDTO)));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")

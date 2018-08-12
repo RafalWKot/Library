@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class BookMapperImpl implements BookMapper {
 
     @Override
-    public BookDTO mapToDto(Book book) {
+    public BookDTO mapToBookDto(Book book) {
         return new BookDTO(
                 book.getId(),
                 book.getTitle(),

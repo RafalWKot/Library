@@ -22,17 +22,31 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.GET)
     public List<UserDTO> getUsers() {
+
         return userMapper.mapToUsersDTO(dbUserService.getUsers());
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public UserDTO getUserById(@PathVariable("id") Long idUser)  {
+
         return userMapper.mapToUserDTO(dbUserService.getUser(idUser));
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = APPLICATION_JSON_VALUE)
     public void addNewUser(@RequestBody UserDTO userDTO)  {
+
         dbUserService.saveUser(userMapper.mapToUser(userDTO));
+    }
+
+    @RequestMapping(method = RequestMethod.POST, consumes = APPLICATION_JSON_VALUE)
+    public UserDTO updataUser(@RequestBody UserDTO userDTO) {
+
+        return userMapper.mapToUserDTO(dbUserService.saveUser(userMapper.mapToUser(userDTO)));
+    }
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+    public void deleteUser(@PathVariable("id") Long idUser) {
+
+        dbUserService.delete(idUser);
     }
 
 }

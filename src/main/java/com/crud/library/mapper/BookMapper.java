@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface BookMapper {
 
-    BookDTO mapToDto(final Book book);
+    BookDTO mapToBookDto(final Book book);
 
     Book mapToBook(final BookDTO bookDTO);
 
