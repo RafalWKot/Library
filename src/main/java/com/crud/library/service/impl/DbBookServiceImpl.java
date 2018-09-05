@@ -25,18 +25,26 @@ public class DbBookServiceImpl implements DbBookService {
     }
 
     @Override
-    public Book saveBook(Book book) {
+    public Book getBook(Long bookId) {
+        return bookRepository.findById(bookId).orElseThrow(BookNotFoundException::new);
+    }
 
+    @Override
+    public List<Book> getBookByTitle(String title) {
+        return bookRepository.findByTitle(title);
+    }
+
+    @Override
+    public List<Book> getBookByAuthor(String author) {
+        return bookRepository.findByAuthor(author);
+    }
+
+    @Override
+    public Book saveBook(Book book) {
         if(bookRepository.findByTitleAndAuthor(book.getTitle(), book.getAuthor()).isPresent()) {
             throw new BookDuplicateException();
         }
         return bookRepository.save(book);
-    }
-
-    @Override
-    public Book getBook(Long bookId) {
-
-        return bookRepository.findById(bookId).orElseThrow(BookNotFoundException::new);
     }
 
     @Override

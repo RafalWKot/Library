@@ -27,7 +27,17 @@ public class BookController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public BookDTO getBookById(@PathVariable("id") Long idBook) {
-        return bookMapper.mapToBookDto(dbBookService.getBook(idBook));
+        return bookMapper.mapToBookDTO(dbBookService.getBook(idBook));
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/title/{title}")
+    public List<BookDTO> getBooksByTitle(@PathVariable("title") String title) {
+        return bookMapper.mapToBooksDTO(dbBookService.getBookByTitle(title));
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/author/{author}")
+    public List<BookDTO> getBooksByAuthor(@PathVariable("author") String author) {
+        return bookMapper.mapToBooksDTO(dbBookService.getBookByAuthor(author));
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = APPLICATION_JSON_VALUE)
@@ -37,7 +47,7 @@ public class BookController {
 
     @RequestMapping(method = RequestMethod.PUT, consumes = APPLICATION_JSON_VALUE)
     public BookDTO updateBook(@RequestBody BookDTO bookDTO){
-        return bookMapper.mapToBookDto(dbBookService.saveBook(bookMapper.mapToBook(bookDTO)));
+        return bookMapper.mapToBookDTO(dbBookService.saveBook(bookMapper.mapToBook(bookDTO)));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")

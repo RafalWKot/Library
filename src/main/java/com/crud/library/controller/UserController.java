@@ -48,5 +48,4 @@ public class UserController {
 
         dbUserService.delete(idUser);
     }
-
 }

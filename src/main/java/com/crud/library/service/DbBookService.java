@@ -11,6 +11,10 @@ public interface DbBookService {
 
     Book getBook(Long bookId);
 
+    List<Book> getBookByTitle(String title);
+
+    List<Book> getBookByAuthor(String author);
+
     Book saveBook(Book book);
 
     void deleteBook(Long bookId);

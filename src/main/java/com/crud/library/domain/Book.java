@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,7 +29,5 @@ public class Book {
 
     @Column
     private Date dateBook;
-
-
 
 }

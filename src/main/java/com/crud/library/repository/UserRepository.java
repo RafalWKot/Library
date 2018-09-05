@@ -14,6 +14,8 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     Optional<User> findByFirstnameAndLastname(String firstname, String lastname);
 
+
+
     @Override
     User save(User user);
 }

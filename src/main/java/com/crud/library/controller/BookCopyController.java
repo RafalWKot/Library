@@ -26,16 +26,19 @@ public class BookCopyController {
 
     @RequestMapping(method = RequestMethod.GET)
     public List<BookCopyDTO> getBookCopies() {
+
         return bookCopyMapper.mapToBookCopiesDto(dbBookCopyService.getBookCopies());
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public BookCopyDTO getBookCopyById(@PathVariable(value = "id") Long idBookCopy) {
-       return bookCopyMapper.mapToBookCopyDTO(dbBookCopyService.getBookCopy(idBookCopy));
+
+        return bookCopyMapper.mapToBookCopyDTO(dbBookCopyService.getBookCopy(idBookCopy));
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes =  APPLICATION_JSON_VALUE)
     public void save(BookCopyDTO bookCopyDTO) {
+
         dbBookCopyService.save(bookCopyMapper.mapToBookCopy(bookCopyDTO));
     }
 }

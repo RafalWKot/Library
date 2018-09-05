@@ -23,11 +23,11 @@ public class BookCopy {
     @JoinColumn(name = "book_id")
     private Book book;
 
-    @Column(name = "status")
+    @Column
     @NotNull
     private String status;
 
-    @OneToMany(
+    @OneToMany( //pozbyć
             targetEntity = BookLoan.class,
             mappedBy = "bookCopy",
             cascade = CascadeType.ALL,

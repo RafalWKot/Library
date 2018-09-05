@@ -29,7 +29,9 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-validation')
     compile('org.springframework.boot:spring-boot-starter-web')
     compile("org.projectlombok:lombok:1.16.18")
-    runtime('mysql:mysql-connector-java')
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '1.5.15.RELEASE'
+    runtime('com.h2database:h2')
+//    runtime('mysql:mysql-connector-java')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 
 }
