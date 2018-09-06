@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
 @Component
 public class UserMapperImpl implements UserMapper {
 
+
+
     @Override
     public List<UserDTO> mapToUsersDTO(List<User> users) {
         return users.stream()
@@ -18,18 +20,35 @@ public class UserMapperImpl implements UserMapper {
                         t.getId(),
                         t.getFirstname(),
                         t.getLastname(),
+                        t.getPesel(),
                         t.getRegistrationDate(),
-                        t.getBookLoans()))
+                        t.getBookLoans()))                   //Tutaj chyba należy użyć mapera od książek
                 .collect(Collectors.toList()
                 );
     }
 
     @Override
+    public List<User> mapToUsers(List<UserDTO> users) {
+        return users.stream()
+                .map(t -> new User(
+                        t.getId(),
+                        t.getFirstname(),
+                        t.getLastname(),
+                        t.getPesel(),
+                        t.getRegistrationDate(),
+                        t.getBookLoans()))                  //Tutaj chyba należy użyć mapera od książek
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public User mapToUser(final UserDTO userDTO) {
+
+
         return new User(
                 userDTO.getId(),
                 userDTO.getFirstname(),
                 userDTO.getLastname(),
+                userDTO.getPesel(),
                 userDTO.getRegistrationDate(),
                 userDTO.getBookLoans()
         );
@@ -41,6 +60,7 @@ public class UserMapperImpl implements UserMapper {
                 user.getId(),
                 user.getFirstname(),
                 user.getLastname(),
+                user.getPesel(),
                 user.getRegistrationDate(),
                 user.getBookLoans()
         );

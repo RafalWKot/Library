@@ -14,6 +14,7 @@ public class UserDTO {
     private Long id;
     private String firstname;
     private String lastname;
+    private String pesel;
     private Date registrationDate;
     private List<BookLoan> bookLoans = new ArrayList<>();
 }

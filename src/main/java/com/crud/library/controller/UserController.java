@@ -32,6 +32,23 @@ public class UserController {
         return userMapper.mapToUserDTO(dbUserService.getUser(idUser));
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/get-by-firstname")
+    public List<UserDTO> getUsersByFirstname(@RequestParam(value = "firstname") String firstname) {
+
+        return userMapper.mapToUsersDTO(dbUserService.getUsersByFirstname(firstname));
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/get-by-lastname")
+    public List<UserDTO> getUsersByLastname(@RequestParam(value = "lastname") String lastname) {
+
+        return userMapper.mapToUsersDTO(dbUserService.getUsersByLastname(lastname));
+    }
+    @RequestMapping(method = RequestMethod.GET, value = "/get-by-firstname-and-lastname")
+    public List<UserDTO> getUserByFirstnameAndLastname(@RequestParam(value = "firstname") String firstname, @RequestParam(value = "lastname") String lastname) {
+
+        return userMapper.mapToUsersDTO(dbUserService.getUsersByFirstnameAndLastname(firstname, lastname));
+    }
+
     @RequestMapping(method = RequestMethod.POST, consumes = APPLICATION_JSON_VALUE)
     public void addNewUser(@RequestBody UserDTO userDTO)  {
 
@@ -43,6 +60,7 @@ public class UserController {
 
         return userMapper.mapToUserDTO(dbUserService.saveUser(userMapper.mapToUser(userDTO)));
     }
+
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
     public void deleteUser(@PathVariable("id") Long idUser) {
 

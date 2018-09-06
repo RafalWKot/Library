@@ -10,6 +10,14 @@ public interface DbUserService {
 
     User getUser(Long userId);
 
+    User getUserByPesel(String pesel);
+
+    List<User> getUsersByFirstnameAndLastname(String firstname, String lastname);
+
+    List<User> getUsersByFirstname(String firstname);
+
+    List<User> getUsersByLastname(String lastname);
+
     User saveUser(User user);
 
     void delete(Long userId);

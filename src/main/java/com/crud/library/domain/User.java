@@ -29,8 +29,11 @@ public class User {
     private String lastname;
 
     @Column
-    private Date registrationDate;
+    @NotNull
+    private String pesel;
 
+    @Column
+    private Date registrationDate;
 
     @OneToMany(
             targetEntity =  BookLoan.class,
@@ -40,9 +43,7 @@ public class User {
     )
     private List<BookLoan> bookLoans = new ArrayList<>();
 
-    public User(String firstname, String lastname, Date registrationDate) {
-        this.firstname = firstname;
-        this.lastname = lastname;
+    public void setRegistrationDate(Date registrationDate) {
         this.registrationDate = registrationDate;
     }
 }
