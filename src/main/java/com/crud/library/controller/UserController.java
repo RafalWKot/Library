@@ -32,19 +32,20 @@ public class UserController {
         return userMapper.mapToUserDTO(dbUserService.getUser(idUser));
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/get-by-firstname")
-    public List<UserDTO> getUsersByFirstname(@RequestParam(value = "firstname") String firstname) {
+    @RequestMapping(method = RequestMethod.GET, value = "/firstname/{firstname}")
+    public List<UserDTO> getUsersByFirstname(@PathVariable("firstname") String firstname) {
 
         return userMapper.mapToUsersDTO(dbUserService.getUsersByFirstname(firstname));
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/get-by-lastname")
-    public List<UserDTO> getUsersByLastname(@RequestParam(value = "lastname") String lastname) {
+    @RequestMapping(method = RequestMethod.GET, value = "/lastname/{lastname}")
+    public List<UserDTO> getUsersByLastname(@PathVariable("lastname") String lastname) {
 
         return userMapper.mapToUsersDTO(dbUserService.getUsersByLastname(lastname));
     }
-    @RequestMapping(method = RequestMethod.GET, value = "/get-by-firstname-and-lastname")
-    public List<UserDTO> getUserByFirstnameAndLastname(@RequestParam(value = "firstname") String firstname, @RequestParam(value = "lastname") String lastname) {
+
+    @RequestMapping(method = RequestMethod.GET, value = "/firstname/{firstname}/lastname/{lastname}")
+    public List<UserDTO> getUserByFirstnameAndLastname(@PathVariable("firstname") String firstname, @PathVariable("lastname") String lastname) {
 
         return userMapper.mapToUsersDTO(dbUserService.getUsersByFirstnameAndLastname(firstname, lastname));
     }
