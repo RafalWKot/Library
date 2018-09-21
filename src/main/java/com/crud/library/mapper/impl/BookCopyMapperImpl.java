@@ -16,8 +16,7 @@ public class BookCopyMapperImpl implements BookCopyMapper {
         return new BookCopyDTO(
                 bookCopy.getId(),
                 bookCopy.getBook(),
-                bookCopy.getStatus(),
-                bookCopy.getBookLoans()
+                bookCopy.getStatus()
         );
     }
 
@@ -26,8 +25,7 @@ public class BookCopyMapperImpl implements BookCopyMapper {
         return new BookCopy(
                 bookCopyDTO.getId(),
                 bookCopyDTO.getBook(),
-                bookCopyDTO.getStatus(),
-                bookCopyDTO.getBookLoans()
+                bookCopyDTO.getStatus()
         );
     }
 
@@ -36,9 +34,8 @@ public class BookCopyMapperImpl implements BookCopyMapper {
         return bookCopies.stream()
                 .map(bookCopy -> new BookCopyDTO(
                         bookCopy.getId(),
-                        bookCopy.getBook() ,
-                        bookCopy.getStatus() ,
-                        bookCopy.getBookLoans()))
+                        bookCopy.getBook(),
+                        bookCopy.getStatus()))
                 .collect(Collectors.toList());
     }
 }

@@ -17,7 +17,7 @@ public class BookMapperImpl implements BookMapper {
                 book.getId(),
                 book.getTitle(),
                 book.getAuthor(),
-                book.getDateBook()
+                book.getPubYear()
         );
     }
 
@@ -27,7 +27,7 @@ public class BookMapperImpl implements BookMapper {
                 bookDTO.getId(),
                 bookDTO.getTitle(),
                 bookDTO.getAuthor(),
-                bookDTO.getDateBook()
+                bookDTO.getPubYear()
         );
     }
 
@@ -38,7 +38,7 @@ public class BookMapperImpl implements BookMapper {
                         t.getId(),
                         t.getTitle(),
                         t.getAuthor(),
-                        t.getDateBook()))
+                        t.getPubYear()))
                 .collect(Collectors.toList());
     }
 }

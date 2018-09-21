@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 
 @Getter
@@ -28,6 +27,11 @@ public class Book {
     private  String author;
 
     @Column
-    private Date dateBook;
+    private String pubYear;
 
+    public Book(String title, String author, String pubYear) {
+        this.title = title;
+        this.author = author;
+        this.pubYear = pubYear;
+    }
 }

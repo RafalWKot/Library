@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,18 +31,14 @@ public class DbBookServiceImpl implements DbBookService {
     }
 
     @Override
-    public List<Book> getBookByTitle(String title) {
-        return bookRepository.findByTitle(title);
-    }
+    public List<Book> getSearchedBook(Book searchBook) {
 
-    @Override
-    public List<Book> getBookByAuthor(String author) {
-        return bookRepository.findByAuthor(author);
+        return bookRepository.findBookByTitleLikeAndAuthorLikeAndPubYearLike(searchBook.getTitle(), searchBook.getAuthor(), searchBook.getPubYear());
     }
 
     @Override
     public Book saveBook(Book book) {
-        if(bookRepository.findByTitleAndAuthor(book.getTitle(), book.getAuthor()).isPresent()) {
+        if(bookRepository.findBookByTitleLikeAndAuthorLikeAndPubYearLike(book.getTitle(), book.getAuthor(), book.getPubYear()).size() != 0) {
             throw new BookDuplicateException();
         }
         return bookRepository.save(book);

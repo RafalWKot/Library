@@ -2,8 +2,11 @@ package com.crud.library.service.impl;
 
 import com.crud.library.domain.BookCopy;
 import com.crud.library.exception.BookCopyNotFoundException;
+import com.crud.library.exception.BookNotFoundException;
 import com.crud.library.repository.BookCopyRepository;
+import com.crud.library.repository.BookRepository;
 import com.crud.library.service.DbBookCopyService;
+import com.crud.library.service.DbBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +21,9 @@ public class DbBookCopyServiceImpl implements DbBookCopyService {
     @Autowired
     BookCopyRepository bookCopyRepository;
 
+    @Autowired
+    DbBookService dbBookService;
+
     @Override
     public List<BookCopy> getBookCopies() {
         return bookCopyRepository.findAll();
@@ -29,8 +35,21 @@ public class DbBookCopyServiceImpl implements DbBookCopyService {
     }
 
     @Override
-    public BookCopy save(BookCopy bookCopy) {
-        return bookCopyRepository.save(bookCopy);
+    public List<BookCopy> getBookCopiesByBookId(Long idBook) {
+        return bookCopyRepository.findByBook_Id(idBook);
     }
 
+    @Override
+    public BookCopy save(BookCopy bookCopy) {
+        if (dbBookService.getBook(bookCopy.getBook().getId()).equals(bookCopy.getBook())) {
+            return bookCopyRepository.save(bookCopy);
+        } else {
+            throw new BookNotFoundException();
+        }
+    }
+
+    @Override
+    public void delete(Long idBookCopy) {
+        bookCopyRepository.delete(idBookCopy);
+    }
 }

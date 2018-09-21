@@ -14,6 +14,8 @@ public class UserDTO {
     private Long id;
     private String firstname;
     private String lastname;
+
+    //@można stworzyć adnotację isValidPesel np.
     private String pesel;
     private Date registrationDate;
     private List<BookLoan> bookLoans = new ArrayList<>();

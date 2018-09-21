@@ -11,7 +11,7 @@ import java.util.List;
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping(value = "/users")
+@RequestMapping(value = "/v1/users")
 public class UserController {
 
     @Autowired
@@ -32,11 +32,12 @@ public class UserController {
         return userMapper.mapToUserDTO(dbUserService.getUser(idUser));
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/firstname/{firstname}")
+    @RequestMapping(method = RequestMethod.GET, value = "/firstname/{firstname}")                             //@RequestParam
     public List<UserDTO> getUsersByFirstname(@PathVariable("firstname") String firstname) {
 
         return userMapper.mapToUsersDTO(dbUserService.getUsersByFirstname(firstname));
     }
+    //metoda  search ->Postem i kilka @RequestParam
 
     @RequestMapping(method = RequestMethod.GET, value = "/lastname/{lastname}")
     public List<UserDTO> getUsersByLastname(@PathVariable("lastname") String lastname) {

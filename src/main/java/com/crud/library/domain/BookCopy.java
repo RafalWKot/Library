@@ -15,8 +15,8 @@ import java.util.List;
 @Entity
 public class BookCopy {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -27,17 +27,7 @@ public class BookCopy {
     @NotNull
     private String status;
 
-    @OneToMany( //pozbyć
-            targetEntity = BookLoan.class,
-            mappedBy = "bookCopy",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER
-    )
-    private List<BookLoan> bookLoans = new ArrayList<>();
-
-    public BookCopy(Book book, String status) {
-        this.book = book;
+    public void setStatus(String status) {
         this.status = status;
     }
-
 }
