@@ -43,18 +43,8 @@ public class DbUserServiceImpl implements DbUserService {
     }
 
     @Override
-    public List<User> getUsersByFirstnameAndLastname(String firstname, String lastname) {
-        return userRepository.findByFirstnameAndLastname(firstname, lastname);
-    }
-
-    @Override
-    public List<User> getUsersByFirstname(String firstname) {
-        return userRepository.findByFirstname(firstname);
-    }
-
-    @Override
-    public List<User> getUsersByLastname(String lastname) {
-        return userRepository.findByLastname(lastname);
+    public List<User> getSearchedUser(User user) {
+        return userRepository.findByFirstnameLikeAndAndLastnameLikeAndAndPeselLike(user.getFirstname(), user.getLastname(), user.getPesel());
     }
 
     @Override

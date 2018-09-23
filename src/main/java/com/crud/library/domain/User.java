@@ -43,6 +43,12 @@ public class User {
     )
     private List<BookLoan> bookLoans = new ArrayList<>();
 
+    public User(String firstname, String lastname, String pesel) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.pesel = pesel;
+    }
+
     public void setRegistrationDate(Date registrationDate) {
         this.registrationDate = registrationDate;
     }

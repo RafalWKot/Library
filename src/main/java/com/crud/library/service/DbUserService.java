@@ -12,11 +12,7 @@ public interface DbUserService {
 
     User getUserByPesel(String pesel);
 
-    List<User> getUsersByFirstnameAndLastname(String firstname, String lastname);
-
-    List<User> getUsersByFirstname(String firstname);
-
-    List<User> getUsersByLastname(String lastname);
+    List<User> getSearchedUser(User user);
 
     User saveUser(User user);
 

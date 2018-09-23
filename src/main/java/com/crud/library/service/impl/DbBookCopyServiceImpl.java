@@ -41,11 +41,11 @@ public class DbBookCopyServiceImpl implements DbBookCopyService {
 
     @Override
     public BookCopy save(BookCopy bookCopy) {
-        if (dbBookService.getBook(bookCopy.getBook().getId()).equals(bookCopy.getBook())) {
-            return bookCopyRepository.save(bookCopy);
-        } else {
+        if (!dbBookService.getBook(bookCopy.getBook().getId()).equals(bookCopy.getBook())) {
             throw new BookNotFoundException();
         }
+        return bookCopyRepository.save(bookCopy);
+
     }
 
     @Override

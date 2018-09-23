@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 public class UserMapperImpl implements UserMapper {
 
 
-
     @Override
     public List<UserDTO> mapToUsersDTO(List<User> users) {
         return users.stream()

@@ -1,10 +1,18 @@
 package com.crud.library.controller;
 
+import com.crud.library.domain.Book;
+import com.crud.library.domain.User;
+import com.crud.library.domainDTO.BookDTO;
 import com.crud.library.domainDTO.UserDTO;
 import com.crud.library.mapper.UserMapper;
 import com.crud.library.service.DbUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -32,29 +40,22 @@ public class UserController {
         return userMapper.mapToUserDTO(dbUserService.getUser(idUser));
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/firstname/{firstname}")                             //@RequestParam
-    public List<UserDTO> getUsersByFirstname(@PathVariable("firstname") String firstname) {
-
-        return userMapper.mapToUsersDTO(dbUserService.getUsersByFirstname(firstname));
-    }
-    //metoda  search ->Postem i kilka @RequestParam
-
-    @RequestMapping(method = RequestMethod.GET, value = "/lastname/{lastname}")
-    public List<UserDTO> getUsersByLastname(@PathVariable("lastname") String lastname) {
-
-        return userMapper.mapToUsersDTO(dbUserService.getUsersByLastname(lastname));
+    @RequestMapping(method = RequestMethod.GET, value = "/searchedUsers")
+    public List<UserDTO> getUserBySearch(@RequestParam(required = false, defaultValue = "%") String firstname,
+                                         @RequestParam(required = false, defaultValue = "%") String lastname,
+                                         @RequestParam(required = false, defaultValue = "%") String pesel) {
+        User searchedUser = new User(firstname, lastname, pesel);
+        return userMapper.mapToUsersDTO(dbUserService.getSearchedUser(searchedUser));
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/firstname/{firstname}/lastname/{lastname}")
-    public List<UserDTO> getUserByFirstnameAndLastname(@PathVariable("firstname") String firstname, @PathVariable("lastname") String lastname) {
-
-        return userMapper.mapToUsersDTO(dbUserService.getUsersByFirstnameAndLastname(firstname, lastname));
-    }
 
     @RequestMapping(method = RequestMethod.POST, consumes = APPLICATION_JSON_VALUE)
-    public void addNewUser(@RequestBody UserDTO userDTO)  {
-
-        dbUserService.saveUser(userMapper.mapToUser(userDTO));
+    public ResponseEntity<?> addNewUser(@RequestBody UserDTO userDTO, UriComponentsBuilder uriComponentsBuilder)  {
+        User user = dbUserService.saveUser(userMapper.mapToUser(userDTO));
+        UriComponents uriComponents = uriComponentsBuilder.path("/v1/users/{id}").buildAndExpand(user.getId());
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation((uriComponents.toUri()));
+        return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.PUT, consumes = APPLICATION_JSON_VALUE)

@@ -36,8 +36,8 @@ public class BookController {
         return bookMapper.mapToBookDTO(dbBookService.getBook(idBook));
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/searchBook")
-    public List<BookDTO> getBookByTitleOrAndAuthor(@RequestParam(required = false, defaultValue = "%") String title,
+    @RequestMapping(method = RequestMethod.GET, value = "/searchedBooks")
+    public List<BookDTO> getBookBySearch(@RequestParam(required = false, defaultValue = "%") String title,
                                                    @RequestParam(required = false, defaultValue = "%") String author,
                                                    @RequestParam(required = false, defaultValue = "%") String pubYear) {
         Book searchBook = new Book(title, author, pubYear);
