@@ -1,6 +1,7 @@
 package com.crud.library.controller;
 
 import com.crud.library.domain.Book;
+import com.crud.library.domainDTO.BookCopyDTO;
 import com.crud.library.domainDTO.BookDTO;
 import com.crud.library.mapper.BookMapper;
 import com.crud.library.service.DbBookService;
@@ -54,8 +55,8 @@ public class BookController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, consumes = APPLICATION_JSON_VALUE)
-    public BookDTO updateBook(@RequestBody BookDTO bookDTO) {
-        return bookMapper.mapToBookDTO(dbBookService.saveBook(bookMapper.mapToBook(bookDTO)));
+    public void updateBook(@RequestBody BookDTO bookDTO) {
+        dbBookService.saveBook(bookMapper.mapToBook(bookDTO));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
