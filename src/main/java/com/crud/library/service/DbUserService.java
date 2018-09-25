@@ -16,5 +16,7 @@ public interface DbUserService {
 
     User saveUser(User user);
 
-    void delete(Long userId);
+    void deleteUser(Long userId);
+
+    void updateUser(User user);
 }

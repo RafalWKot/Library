@@ -50,10 +50,10 @@ public class DbUserServiceImpl implements DbUserService {
     @Override
     public User saveUser(User user) throws UserDuplicateException, UserInvalidInputDataException {
 
-        if(userRepository.findByPesel(user.getPesel()).isPresent()) {
+        if (userRepository.findByPesel(user.getPesel()).isPresent()) {
             throw new UserDuplicateException();
         }
-        if(!userValidation.isValidPesel(user.getPesel())) {
+        if (!userValidation.isValidPesel(user.getPesel())) {
             throw new UserInvalidInputDataException();
         }
         user.setRegistrationDate(new Date());
@@ -61,7 +61,18 @@ public class DbUserServiceImpl implements DbUserService {
     }
 
     @Override
-    public void delete(Long userId) {
+    public void deleteUser(Long userId) {
         userRepository.delete(userId);
+    }
+
+    @Override
+    public void updateUser(User user) {
+        if (!userRepository.exists(user.getId())) {
+            throw new UserNotFoundException();
+        }
+        if (userRepository.findById(user.getId()).equals(user)) {
+            throw new UserInvalidInputDataException();
+        }
+        userRepository.save(user);
     }
 }

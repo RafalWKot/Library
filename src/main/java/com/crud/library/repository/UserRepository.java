@@ -23,6 +23,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
     @Override
     void delete(Long userId);
 
-
-
+    @Override
+    boolean exists(Long aLong);
 }
