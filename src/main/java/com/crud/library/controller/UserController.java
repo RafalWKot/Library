@@ -58,7 +58,7 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.PUT, consumes = APPLICATION_JSON_VALUE)
     public void updateUser(@RequestBody UserDTO userDTO) {
-        userMapper.mapToUserDTO(dbUserService.saveUser(userMapper.mapToUser(userDTO)));
+        dbUserService.updateUser(userMapper.mapToUser(userDTO));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
