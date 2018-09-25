@@ -55,7 +55,7 @@ public class BookController {
 
     @RequestMapping(method = RequestMethod.PUT, consumes = APPLICATION_JSON_VALUE)
     public void updateBook(@RequestBody BookDTO bookDTO) {
-        dbBookService.saveBook(bookMapper.mapToBook(bookDTO));
+        dbBookService.updateBook(bookMapper.mapToBook(bookDTO));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")

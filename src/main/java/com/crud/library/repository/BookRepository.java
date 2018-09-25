@@ -26,5 +26,8 @@ public interface BookRepository extends CrudRepository<Book, Long> {
 
     @Override
     void delete(Long aLong);
+
+    @Override
+    boolean exists(Long aLong);
 }
 

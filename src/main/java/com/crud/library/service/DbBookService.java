@@ -15,5 +15,7 @@ public interface DbBookService {
 
     void deleteBook(Long bookId);
 
+    void updateBook(Book book);
+
     List<Book> getSearchedBook(Book searchBook);
 }

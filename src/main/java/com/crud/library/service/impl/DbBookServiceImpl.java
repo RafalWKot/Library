@@ -2,6 +2,7 @@ package com.crud.library.service.impl;
 
 import com.crud.library.domain.Book;
 import com.crud.library.exception.BookDuplicateException;
+import com.crud.library.exception.BookInvalidInputDataException;
 import com.crud.library.exception.BookNotFoundException;
 import com.crud.library.repository.BookRepository;
 import com.crud.library.service.DbBookService;
@@ -47,5 +48,16 @@ public class DbBookServiceImpl implements DbBookService {
     @Override
     public void deleteBook(Long bookId) {
         bookRepository.delete(bookId);
+    }
+
+    @Override
+    public void updateBook(Book book) {
+        if(!bookRepository.exists(book.getId())){
+            throw new BookNotFoundException();
+        }
+        if(!bookRepository.findById(book.getId()).equals(book)) {
+            throw  new BookInvalidInputDataException();
+        }
+        bookRepository.save(book);
     }
 }
