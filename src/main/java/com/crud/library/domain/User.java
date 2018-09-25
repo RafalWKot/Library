@@ -6,9 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -34,14 +32,6 @@ public class User {
 
     @Column
     private Date registrationDate;
-
-    @OneToMany(
-            targetEntity =  BookLoan.class,
-            mappedBy = "user",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER
-    )
-    private List<BookLoan> bookLoans = new ArrayList<>();
 
     public User(String firstname, String lastname, String pesel) {
         this.firstname = firstname;

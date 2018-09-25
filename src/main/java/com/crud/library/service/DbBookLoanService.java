@@ -2,11 +2,18 @@ package com.crud.library.service;
 
 import com.crud.library.domain.BookLoan;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface DbBookLoanService {
 
-    Optional<BookLoan> getBookLoan(Long id);
+    List<BookLoan> getBookLoans();
 
-    BookLoan addBoakLoan(BookLoan bookLoan);
+    BookLoan getBookLoan(Long id);
+
+    BookLoan addBookLoan(BookLoan bookLoan);
+
+    void delete(Long id);
+
+    void updateBookLoan(BookLoan bookLoan);
 }

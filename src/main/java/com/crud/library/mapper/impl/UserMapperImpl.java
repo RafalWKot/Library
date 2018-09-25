@@ -20,8 +20,7 @@ public class UserMapperImpl implements UserMapper {
                         t.getFirstname(),
                         t.getLastname(),
                         t.getPesel(),
-                        t.getRegistrationDate(),
-                        t.getBookLoans()))                   //Tutaj chyba należy użyć mapera od książek
+                        t.getRegistrationDate()))                   //Tutaj chyba należy użyć mapera od książek
                 .collect(Collectors.toList()
                 );
     }
@@ -34,8 +33,7 @@ public class UserMapperImpl implements UserMapper {
                         t.getFirstname(),
                         t.getLastname(),
                         t.getPesel(),
-                        t.getRegistrationDate(),
-                        t.getBookLoans()))                  //Tutaj chyba należy użyć mapera od książek
+                        t.getRegistrationDate()))                  //Tutaj chyba należy użyć mapera od książek
                 .collect(Collectors.toList());
     }
 
@@ -48,9 +46,7 @@ public class UserMapperImpl implements UserMapper {
                 userDTO.getFirstname(),
                 userDTO.getLastname(),
                 userDTO.getPesel(),
-                userDTO.getRegistrationDate(),
-                userDTO.getBookLoans()
-        );
+                userDTO.getRegistrationDate());
     }
 
     @Override
@@ -60,8 +56,6 @@ public class UserMapperImpl implements UserMapper {
                 user.getFirstname(),
                 user.getLastname(),
                 user.getPesel(),
-                user.getRegistrationDate(),
-                user.getBookLoans()
-        );
+                user.getRegistrationDate());
     }
 }

@@ -17,11 +17,11 @@ public class BookLoan {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne            //(cascade = CascadeType.ALL)
     @JoinColumn(name = "bookCopy_id")
     private BookCopy bookCopy;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne             //(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 

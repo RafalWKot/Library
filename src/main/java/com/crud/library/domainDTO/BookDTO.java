@@ -1,11 +1,9 @@
 package com.crud.library.domainDTO;
 
-import com.crud.library.domain.BookCopy;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.Date;
-import java.util.List;
 
 @Getter
 @AllArgsConstructor
