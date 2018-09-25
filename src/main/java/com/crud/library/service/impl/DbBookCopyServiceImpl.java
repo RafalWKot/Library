@@ -47,8 +47,19 @@ public class DbBookCopyServiceImpl implements DbBookCopyService {
     }
 
     @Override
-    public void delete(Long idBookCopy) {
+    public void deleteBookCopy(Long idBookCopy) {
         bookCopyRepository.delete(idBookCopy);
+    }
+
+    @Override
+    public void updateBookCopy(BookCopy bookCopy) {
+        if (!bookCopyRepository.exists(bookCopy.getId())) {
+            throw new BookCopyNotFoundException();
+        }
+        if (bookCopyRepository.findById(bookCopy.getId()).equals(bookCopy)) {
+            throw new BookCopyInvalidInputDataException();
+        }
+        bookCopyRepository.save(bookCopy);
     }
 
     @Override

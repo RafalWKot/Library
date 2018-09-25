@@ -15,7 +15,9 @@ public interface DbBookCopyService {
 
     BookCopy save(BookCopy bookCopy);
 
-    void delete(Long id);
+    void deleteBookCopy(Long id);
+
+    void updateBookCopy(BookCopy bookCopy);
 
     void changeStatus(BookCopy bookCopy);
 }

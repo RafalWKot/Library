@@ -54,7 +54,7 @@ public class BookCopyController {
 
     @RequestMapping(method = RequestMethod.PUT, consumes = APPLICATION_JSON_VALUE)
     public void updateBookCopy(@RequestBody BookCopyDTO bookCopyDTO) {
-        dbBookCopyService.save(bookCopyMapper.mapToBookCopy(bookCopyDTO));
+        dbBookCopyService.updateBookCopy(bookCopyMapper.mapToBookCopy(bookCopyDTO));
     }
 
     @RequestMapping(method = RequestMethod.PUT, consumes = APPLICATION_JSON_VALUE, value = "/changeBookCopyStatus")
@@ -64,6 +64,6 @@ public class BookCopyController {
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
     public void deleteBookCopy(@PathVariable(value = "id") Long idBookCopy) {
-        dbBookCopyService.delete(idBookCopy);
+        dbBookCopyService.deleteBookCopy(idBookCopy);
     }
 }

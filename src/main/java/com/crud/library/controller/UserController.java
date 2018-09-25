@@ -30,13 +30,11 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.GET)
     public List<UserDTO> getUsers() {
-
         return userMapper.mapToUsersDTO(dbUserService.getUsers());
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public UserDTO getUserById(@PathVariable("id") Long idUser)  {
-
         return userMapper.mapToUserDTO(dbUserService.getUser(idUser));
     }
 
@@ -65,7 +63,6 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
     public void deleteUser(@PathVariable("id") Long idUser) {
-
-        dbUserService.delete(idUser);
+        dbUserService.deleteUser(idUser);
     }
 }
