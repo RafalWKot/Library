@@ -1,6 +1,6 @@
 package com.crud.library.repository;
 
-import com.crud.library.domain.BookLoan;
+import com.crud.library.domain.BookBorrowed;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,15 +10,15 @@ import java.util.Optional;
 
 @Transactional
 @Repository
-public interface BookLoanRepository extends CrudRepository<BookLoan, Long> {
+public interface BookBorrowedRepository extends CrudRepository<BookBorrowed, Long> {
 
     @Override
-    List<BookLoan> findAll();
+    List<BookBorrowed> findAll();
 
-    Optional<BookLoan> findById(Long id);
+    Optional<BookBorrowed> findById(Long id);
 
     @Override
-    BookLoan save(BookLoan bookLoan);
+    BookBorrowed save(BookBorrowed bookBorrowed);
 
     @Override
     void delete(Long aLong);

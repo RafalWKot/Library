@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class BookLoanDTO {
+public class BookBorrowedDTO {
 
     private Long id;
     private BookCopy bookCopy;

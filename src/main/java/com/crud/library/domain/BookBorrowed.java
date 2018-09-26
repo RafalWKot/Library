@@ -6,12 +6,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class BookLoan {
+public class BookBorrowed {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,5 +25,7 @@ public class BookLoan {
     @ManyToOne             //(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
+
+    //private Date
 
 }
