@@ -1,15 +1,21 @@
 package com.crud.library.mapper;
 
-import com.crud.library.domain.BookBorrowed;
-import com.crud.library.domainDTO.BookBorrowedDTO;
+import com.crud.library.domain.dao.BookBorrowed;
+import com.crud.library.domainDTO.BookBorrowedResponseDto;
+import com.crud.library.domainDTO.CreateBookBorrowedDto;
+import com.crud.library.domainDTO.UpdateBookBorrowed;
 
 import java.util.List;
 
 public interface BookBorrowedMapper {
 
-    BookBorrowed mapToBookBorrowed(BookBorrowedDTO bookBorrowedDTO);
+    BookBorrowed mapToBookBorrowed(CreateBookBorrowedDto createBookBorrowedDto);
 
-    BookBorrowedDTO mapToBookBorrowedDto(BookBorrowed bookBorrowed);
+    public BookBorrowed mapToBookBorrowed(UpdateBookBorrowed updateBookBorrowed);
 
-    List<BookBorrowedDTO> mapsToBooksBorrowedDTO(List<BookBorrowed> bookBorroweds);
+    BookBorrowedResponseDto mapToBookBorrowedDto(BookBorrowed bookBorrowed);
+
+    List<BookBorrowedResponseDto> mapsToBooksBorrowedDTO(List<BookBorrowed> bookBorroweds);
+
+
 }

@@ -1,6 +1,6 @@
 package com.crud.library.service;
 
-import com.crud.library.domain.BookBorrowed;
+import com.crud.library.domain.dao.BookBorrowed;
 
 import java.util.List;
 
@@ -10,7 +10,9 @@ public interface DbBookBorrowedService {
 
     BookBorrowed getBookBorrowed(Long id);
 
-    BookBorrowed addBookBorrowed(BookBorrowed bookBorrowed);
+    BookBorrowed borrowBook(BookBorrowed bookBorrowed, int weeksBorrowQuantity);
+
+    void returnBook(BookBorrowed bookBorrowed);
 
     void deleteBookBorrowed(Long id);
 

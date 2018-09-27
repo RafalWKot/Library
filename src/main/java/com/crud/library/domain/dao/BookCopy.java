@@ -1,5 +1,6 @@
-package com.crud.library.domain;
+package com.crud.library.domain.dao;
 
+import com.crud.library.domain.dao.Book;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

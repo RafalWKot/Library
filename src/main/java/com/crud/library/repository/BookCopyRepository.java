@@ -1,6 +1,6 @@
 package com.crud.library.repository;
 
-import com.crud.library.domain.BookCopy;
+import com.crud.library.domain.dao.BookCopy;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,6 @@
 package com.crud.library.repository;
 
-import com.crud.library.domain.User;
+import com.crud.library.domain.dao.User;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

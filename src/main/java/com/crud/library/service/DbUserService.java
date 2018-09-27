@@ -1,6 +1,6 @@
 package com.crud.library.service;
 
-import com.crud.library.domain.User;
+import com.crud.library.domain.dao.User;
 
 import java.util.List;
 

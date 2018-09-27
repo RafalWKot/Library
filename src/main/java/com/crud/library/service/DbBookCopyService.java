@@ -1,6 +1,6 @@
 package com.crud.library.service;
 
-import com.crud.library.domain.BookCopy;
+import com.crud.library.domain.dao.BookCopy;
 
 import java.util.List;
 

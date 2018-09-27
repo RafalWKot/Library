@@ -1,9 +1,8 @@
 package com.crud.library.service;
 
-import com.crud.library.domain.Book;
+import com.crud.library.domain.dao.Book;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface DbBookService {
 

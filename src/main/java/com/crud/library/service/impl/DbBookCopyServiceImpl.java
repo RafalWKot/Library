@@ -1,6 +1,6 @@
 package com.crud.library.service.impl;
 
-import com.crud.library.domain.BookCopy;
+import com.crud.library.domain.dao.BookCopy;
 import com.crud.library.exception.BookCopyInvalidInputDataException;
 import com.crud.library.exception.BookCopyNotFoundException;
 import com.crud.library.exception.BookNotFoundException;

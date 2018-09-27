@@ -1,17 +1,23 @@
 package com.crud.library.mapper;
 
-import com.crud.library.domain.User;
-import com.crud.library.domainDTO.UserDTO;
+import com.crud.library.domain.dao.User;
+import com.crud.library.domainDTO.CreateUserDto;
+import com.crud.library.domainDTO.UpdateUserDto;
+import com.crud.library.domainDTO.UserResponseDto;
 
 import java.util.List;
 
 public interface UserMapper {
 
-    List<UserDTO> mapToUsersDTO(final List<User> users);
+    User mapToUser(final CreateUserDto createUserDto);
 
-    List<User> mapToUsers(final List<UserDTO> users);
+    List<UserResponseDto> mapToUsersResponseDto(final List<User> users);
 
-    User mapToUser(final UserDTO userDTO);
+    List<User> mapToUsers(final List<UserResponseDto> users);
 
-    UserDTO mapToUserDTO(final User user);
+    User mapToUser(final UserResponseDto userResponseDto);
+
+    UserResponseDto mapToUserResponseDto(final User user);
+
+    User mapToUser(final UpdateUserDto updateUserDto);
 }

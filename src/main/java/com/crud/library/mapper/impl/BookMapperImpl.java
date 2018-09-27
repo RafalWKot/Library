@@ -1,6 +1,6 @@
 package com.crud.library.mapper.impl;
 
-import com.crud.library.domain.Book;
+import com.crud.library.domain.dao.Book;
 import com.crud.library.domainDTO.BookDTO;
 import com.crud.library.mapper.BookMapper;
 import org.springframework.stereotype.Component;

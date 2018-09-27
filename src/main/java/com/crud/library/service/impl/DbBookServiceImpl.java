@@ -1,6 +1,6 @@
 package com.crud.library.service.impl;
 
-import com.crud.library.domain.Book;
+import com.crud.library.domain.dao.Book;
 import com.crud.library.exception.BookDuplicateException;
 import com.crud.library.exception.BookInvalidInputDataException;
 import com.crud.library.exception.BookNotFoundException;
@@ -10,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Transactional
 @Service
