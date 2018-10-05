@@ -1,6 +1,5 @@
-package com.crud.library.domain.dao;
+package com.crud.library.domain.entities;
 
-import com.crud.library.domain.dao.Book;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -20,7 +19,7 @@ public class BookCopy {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne    // sprawdzić dlaczego nie może być(cascade = CascadeType.ALL)
+    @ManyToOne    //(cascade = CascadeType.ALL)
     @JoinColumn(name = "book_id")
     private Book book;
 

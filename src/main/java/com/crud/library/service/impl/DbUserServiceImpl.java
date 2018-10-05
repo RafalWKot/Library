@@ -1,7 +1,7 @@
 package com.crud.library.service.impl;
 
 
-import com.crud.library.domain.dao.User;
+import com.crud.library.domain.entities.User;
 import com.crud.library.exception.UserDuplicateException;
 import com.crud.library.exception.UserInvalidInputDataException;
 import com.crud.library.exception.UserNotFoundException;
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Transactional
@@ -28,7 +29,6 @@ public class DbUserServiceImpl implements DbUserService {
     @Override
     public List<User> getUsers() {
 
-        System.out.println(userRepository.findAll().size());
         return userRepository.findAll();
     }
 
@@ -56,7 +56,7 @@ public class DbUserServiceImpl implements DbUserService {
         if (!userValidation.isValidPesel(user.getPesel())) {
             throw new UserInvalidInputDataException();
         }
-        user.setRegistrationDate(LocalDate.now());
+        user.setRegistrationDate(LocalDateTime.now());
         return userRepository.save(user);
     }
 

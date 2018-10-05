@@ -1,6 +1,6 @@
 package com.crud.library.mapper;
 
-import com.crud.library.domain.dao.Book;
+import com.crud.library.domain.entities.Book;
 import com.crud.library.domainDTO.BookDTO;
 
 import java.util.List;

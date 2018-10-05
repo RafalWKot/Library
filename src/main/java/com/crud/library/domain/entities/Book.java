@@ -1,4 +1,4 @@
-package com.crud.library.domain.dao;
+package com.crud.library.domain.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -29,6 +29,7 @@ public class Book {
     private  String author;
 
     @Column
+    @NotNull
     private String pubYear;
 
     public Book(String title, String author, String pubYear) {

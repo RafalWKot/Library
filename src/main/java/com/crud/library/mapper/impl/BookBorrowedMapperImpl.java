@@ -1,11 +1,10 @@
 package com.crud.library.mapper.impl;
 
-import com.crud.library.domain.dao.BookBorrowed;
-import com.crud.library.domainDTO.BookBorrowedResponseDto;
-import com.crud.library.domainDTO.CreateBookBorrowedDto;
-import com.crud.library.domainDTO.UpdateBookBorrowed;
+import com.crud.library.domain.LocalDateTimeConverter;
+import com.crud.library.domain.entities.BookBorrowed;
+import com.crud.library.domainDTO.BookBorrowedDto;
 import com.crud.library.mapper.BookBorrowedMapper;
-import com.crud.library.mapper.DateUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,48 +13,45 @@ import java.util.stream.Collectors;
 @Component
 public class BookBorrowedMapperImpl implements BookBorrowedMapper {
 
+
+    @Autowired
+    LocalDateTimeConverter localDateTimeConverter;
+
     @Override
-    public BookBorrowed mapToBookBorrowed(CreateBookBorrowedDto createBookBorrowedDto) {
+    public BookBorrowed mapToBookBorrowed(BookBorrowedDto bookBorrowedDto) {
         return new BookBorrowed(
-                createBookBorrowedDto.getBookCopy(),
-                createBookBorrowedDto.getUser()
+                bookBorrowedDto.getId(),
+                bookBorrowedDto.getBookCopy(),
+                bookBorrowedDto.getUser(),
+                localDateTimeConverter.convertToEntityAttribute(bookBorrowedDto.getBorrowDate()),
+                localDateTimeConverter.convertToEntityAttribute(bookBorrowedDto.getPlannedReturnDate()),
+                localDateTimeConverter.convertToEntityAttribute(bookBorrowedDto.getReturnDate())
         );
     }
 
     @Override
-    public BookBorrowed mapToBookBorrowed(UpdateBookBorrowed updateBookBorrowed) {
-        return new BookBorrowed(
-                updateBookBorrowed.getId(),
-                updateBookBorrowed.getBookCopy(),
-                updateBookBorrowed.getUser(),
-                DateUtils.asLocalDate(updateBookBorrowed.getBorrowDate()),
-                DateUtils.asLocalDate(updateBookBorrowed.getPlannedReturnDate()),
-                DateUtils.asLocalDate(updateBookBorrowed.getReturnDate())
-        );
-    }
-
-    @Override
-    public BookBorrowedResponseDto mapToBookBorrowedDto(BookBorrowed bookBorrowed) {
-        return new BookBorrowedResponseDto(
+    public BookBorrowedDto mapToBookBorrowedDto(BookBorrowed bookBorrowed) {
+        return new BookBorrowedDto(
                 bookBorrowed.getId(),
                 bookBorrowed.getBookCopy(),
                 bookBorrowed.getUser(),
-                DateUtils.asDate(bookBorrowed.getBorrowDate()),
-                DateUtils.asDate(bookBorrowed.getPlannedReturnDate()),
-                DateUtils.asDate(bookBorrowed.getReturnDate())
+                localDateTimeConverter.convertToDatabaseColumn(bookBorrowed.getBorrowDate()),
+                localDateTimeConverter.convertToDatabaseColumn(bookBorrowed.getPlannedReturnDate()),
+                localDateTimeConverter.convertToDatabaseColumn(bookBorrowed.getReturnDate())
+
         );
     }
 
     @Override
-    public List<BookBorrowedResponseDto> mapsToBooksBorrowedDTO(List<BookBorrowed> bookBorroweds) {
+    public List<BookBorrowedDto> mapsToBooksBorrowedDTO(List<BookBorrowed> bookBorroweds) {
         return bookBorroweds.stream()
-                .map(bookBorrowed -> new BookBorrowedResponseDto(
+                .map(bookBorrowed -> new BookBorrowedDto(
                         bookBorrowed.getId(),
                         bookBorrowed.getBookCopy(),
                         bookBorrowed.getUser(),
-                        DateUtils.asDate(bookBorrowed.getBorrowDate()),
-                        DateUtils.asDate(bookBorrowed.getPlannedReturnDate()),
-                        DateUtils.asDate(bookBorrowed.getReturnDate())))
+                        localDateTimeConverter.convertToDatabaseColumn(bookBorrowed.getBorrowDate()),
+                        localDateTimeConverter.convertToDatabaseColumn(bookBorrowed.getPlannedReturnDate()),
+                        localDateTimeConverter.convertToDatabaseColumn(bookBorrowed.getReturnDate())))
                 .collect(Collectors.toList());
     }
 }

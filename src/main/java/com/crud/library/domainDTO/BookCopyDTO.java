@@ -1,6 +1,6 @@
 package com.crud.library.domainDTO;
 
-import com.crud.library.domain.dao.Book;
+import com.crud.library.domain.entities.Book;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

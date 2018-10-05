@@ -1,7 +1,7 @@
 package com.crud.library.controller;
 
 
-import com.crud.library.domain.dao.BookCopy;
+import com.crud.library.domain.entities.BookCopy;
 import com.crud.library.domainDTO.BookCopyDTO;
 import com.crud.library.mapper.BookCopyMapper;
 import com.crud.library.service.impl.DbBookCopyServiceImpl;
@@ -44,7 +44,7 @@ public class BookCopyController {
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes =  APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> addNewBookCopy(@RequestBody BookCopyDTO bookCopyDTO, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<?> addBookCopy(@RequestBody BookCopyDTO bookCopyDTO, UriComponentsBuilder uriComponentsBuilder) {
         BookCopy bookCopy = dbBookCopyService.save(bookCopyMapper.mapToBookCopy(bookCopyDTO));
         UriComponents uriComponents = uriComponentsBuilder.path("/v1/bookCopies/{id}").buildAndExpand(bookCopy.getId());
         HttpHeaders headers = new HttpHeaders();

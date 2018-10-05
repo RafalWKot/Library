@@ -1,6 +1,6 @@
 package com.crud.library.controller;
 
-import com.crud.library.domain.dao.Book;
+import com.crud.library.domain.entities.Book;
 import com.crud.library.domainDTO.BookDTO;
 import com.crud.library.mapper.BookMapper;
 import com.crud.library.service.DbBookService;

@@ -1,6 +1,6 @@
 package com.crud.library.service.impl;
 
-import com.crud.library.domain.dao.Book;
+import com.crud.library.domain.entities.Book;
 import com.crud.library.exception.BookDuplicateException;
 import com.crud.library.exception.BookInvalidInputDataException;
 import com.crud.library.exception.BookNotFoundException;

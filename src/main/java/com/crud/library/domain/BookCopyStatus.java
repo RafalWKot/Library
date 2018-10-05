@@ -2,8 +2,11 @@ package com.crud.library.domain;
 
 public enum BookCopyStatus {
 
-    Free("wolna"),
-    Borrowed("wypożyczona");
+    Free("Dostepna"),
+    Borrowed("Wypozyczona"),
+    Booked("Zarezerwowana"),
+    Unavailable("Niedostępna"),
+    Returned("Zwrocona");
 
     private String text;
 

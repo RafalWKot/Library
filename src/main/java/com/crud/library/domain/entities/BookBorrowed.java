@@ -1,19 +1,22 @@
-package com.crud.library.domain.dao;
+package com.crud.library.domain.entities;
 
 
+import com.crud.library.domain.LocalDateTimeConverter;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
 
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 @Entity
 public class BookBorrowed {
 
@@ -30,23 +33,24 @@ public class BookBorrowed {
     private User user;
 
     @Column
-    private LocalDate borrowDate;
+    @Convert(converter = LocalDateTimeConverter.class)
+    private LocalDateTime borrowDate;
 
     @Column
-    private LocalDate plannedReturnDate;
+    @Convert(converter = LocalDateTimeConverter.class)
+    private LocalDateTime plannedReturnDate;
 
     @Column
-    private LocalDate returnDate;
+    @Convert(converter = LocalDateTimeConverter.class)
+    private LocalDateTime returnDate;
 
     @Column
     private BigDecimal penaltyFee;
 
-    public BookBorrowed(BookCopy bookCopy, User user) {
-        this.bookCopy = bookCopy;
-        this.user = user;
-    }
+    @Column
+    private BigDecimal penaltyFeeRemain;
 
-    public BookBorrowed(Long id, BookCopy bookCopy, User user, LocalDate borrowDate, LocalDate plannedReturnDate, LocalDate returnDate) {
+    public BookBorrowed(Long id, BookCopy bookCopy, User user, LocalDateTime borrowDate, LocalDateTime plannedReturnDate, LocalDateTime returnDate) {
         this.id = id;
         this.bookCopy = bookCopy;
         this.user = user;
@@ -55,15 +59,15 @@ public class BookBorrowed {
         this.returnDate = returnDate;
     }
 
-    public void setBorrowDate(LocalDate borrowDate) {
+    public void setBorrowDate(LocalDateTime borrowDate) {
         this.borrowDate = borrowDate;
     }
 
-    public void setPlannedReturnDate(LocalDate plannedReturnDate) {
+    public void setPlannedReturnDate(LocalDateTime plannedReturnDate) {
         this.plannedReturnDate = plannedReturnDate;
     }
 
-    public void setReturnDate(LocalDate returnDate) {
+    public void setReturnDate(LocalDateTime returnDate) {
         this.returnDate = returnDate;
     }
 

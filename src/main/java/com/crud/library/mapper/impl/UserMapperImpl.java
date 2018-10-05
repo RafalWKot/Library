@@ -1,11 +1,10 @@
 package com.crud.library.mapper.impl;
 
-import com.crud.library.domain.dao.User;
-import com.crud.library.domainDTO.CreateUserDto;
-import com.crud.library.domainDTO.UpdateUserDto;
-import com.crud.library.domainDTO.UserResponseDto;
-import com.crud.library.mapper.DateUtils;
+import com.crud.library.domain.LocalDateTimeConverter;
+import com.crud.library.domain.entities.User;
+import com.crud.library.domainDTO.UserDto;
 import com.crud.library.mapper.UserMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,69 +12,56 @@ import java.util.stream.Collectors;
 
 @Component
 public class UserMapperImpl implements UserMapper {
+    
+
+    @Autowired
+    LocalDateTimeConverter localDateTimeConverter;
 
     @Override
-    public User mapToUser(CreateUserDto createUserDto) {
-        return new User(
-                createUserDto.getFirstname(),
-                createUserDto.getLastname(),
-                createUserDto.getPesel());
-    }
-
-    @Override
-    public List<UserResponseDto> mapToUsersResponseDto(List<User> users) {
+    public List<UserDto> mapToUsersDto(List<User> users) {
         return users.stream()
-                .map(t -> new UserResponseDto(
+                .map(t -> new UserDto(
                         t.getId(),
                         t.getFirstname(),
                         t.getLastname(),
                         t.getPesel(),
-                        DateUtils.asDate(t.getRegistrationDate())))                   //Tutaj chyba należy użyć mapera od książek
+                        localDateTimeConverter.convertToDatabaseColumn(t.getRegistrationDate())))                   //Tutaj chyba należy użyć mapera od książek
                 .collect(Collectors.toList()
                 );
     }
 
     @Override
-    public List<User> mapToUsers(List<UserResponseDto> users) {
+    public List<User> mapToUsers(List<UserDto> users) {
         return users.stream()
                 .map(t -> new User(
                         t.getId(),
                         t.getFirstname(),
                         t.getLastname(),
                         t.getPesel(),
-                        DateUtils.asLocalDate(t.getRegistrationDate())))                  //Tutaj chyba należy użyć mapera od książek
+                        localDateTimeConverter.convertToEntityAttribute(t.getRegistrationDate())))                  //Tutaj chyba należy użyć mapera od książek
                 .collect(Collectors.toList());
     }
 
     @Override
-    public User mapToUser(final UserResponseDto userResponseDto) {
-
+    public User mapToUser(final UserDto userDto) {
 
         return new User(
-                userResponseDto.getId(),
-                userResponseDto.getFirstname(),
-                userResponseDto.getLastname(),
-                userResponseDto.getPesel(),
-                DateUtils.asLocalDate(userResponseDto.getRegistrationDate()));
+                userDto.getId(),
+                userDto.getFirstname(),
+                userDto.getLastname(),
+                userDto.getPesel(),
+                localDateTimeConverter.convertToEntityAttribute(userDto.getRegistrationDate()));
     }
 
     @Override
-    public UserResponseDto mapToUserResponseDto(final User user) {
-        return new UserResponseDto(
+    public UserDto mapToUserDto(final User user) {
+        return new UserDto(
                 user.getId(),
                 user.getFirstname(),
                 user.getLastname(),
                 user.getPesel(),
-                DateUtils.asDate(user.getRegistrationDate()));
+                localDateTimeConverter.convertToDatabaseColumn(user.getRegistrationDate()));
     }
 
-    @Override
-    public User mapToUser(UpdateUserDto updateUserDto) {
-        return new User(
-                updateUserDto.getId(),
-                updateUserDto.getFirstname(),
-                updateUserDto.getLastname(),
-                updateUserDto.getPesel()
-        );
-    }
+
 }

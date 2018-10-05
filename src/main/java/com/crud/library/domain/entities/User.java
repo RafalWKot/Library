@@ -1,17 +1,20 @@
-package com.crud.library.domain.dao;
+package com.crud.library.domain.entities;
 
+import com.crud.library.domain.LocalDateTimeConverter;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
-import java.util.Date;
+import java.time.LocalDateTime;
+
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 @Entity
 public class User {
 
@@ -32,7 +35,8 @@ public class User {
     private String pesel;
 
     @Column
-    private LocalDate registrationDate;
+    @Convert(converter = LocalDateTimeConverter.class)
+    private LocalDateTime registrationDate;
 
     public User(String firstname, String lastname, String pesel) {
         this.firstname = firstname;
@@ -47,7 +51,7 @@ public class User {
         this.pesel = pesel;
     }
 
-    public void setRegistrationDate(LocalDate registrationDate) {
+    public void setRegistrationDate(LocalDateTime registrationDate) {
         this.registrationDate = registrationDate;
     }
 }
