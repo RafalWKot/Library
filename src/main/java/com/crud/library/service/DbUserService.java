@@ -10,8 +10,6 @@ public interface DbUserService {
 
     User getUser(Long userId);
 
-    User getUserByPesel(String pesel);
-
     List<User> getSearchedUser(User user);
 
     User saveUser(User user);

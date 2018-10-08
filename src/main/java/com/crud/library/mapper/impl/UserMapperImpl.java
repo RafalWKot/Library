@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 
 @Component
 public class UserMapperImpl implements UserMapper {
-    
 
     @Autowired
     LocalDateTimeConverter localDateTimeConverter;
@@ -25,7 +24,7 @@ public class UserMapperImpl implements UserMapper {
                         t.getFirstname(),
                         t.getLastname(),
                         t.getPesel(),
-                        localDateTimeConverter.convertToDatabaseColumn(t.getRegistrationDate())))                   //Tutaj chyba należy użyć mapera od książek
+                        localDateTimeConverter.convertToDatabaseColumn(t.getRegistrationDate())))
                 .collect(Collectors.toList()
                 );
     }
@@ -38,13 +37,12 @@ public class UserMapperImpl implements UserMapper {
                         t.getFirstname(),
                         t.getLastname(),
                         t.getPesel(),
-                        localDateTimeConverter.convertToEntityAttribute(t.getRegistrationDate())))                  //Tutaj chyba należy użyć mapera od książek
+                        localDateTimeConverter.convertToEntityAttribute(t.getRegistrationDate())))
                 .collect(Collectors.toList());
     }
 
     @Override
     public User mapToUser(final UserDto userDto) {
-
         return new User(
                 userDto.getId(),
                 userDto.getFirstname(),
@@ -62,6 +60,4 @@ public class UserMapperImpl implements UserMapper {
                 user.getPesel(),
                 localDateTimeConverter.convertToDatabaseColumn(user.getRegistrationDate()));
     }
-
-
 }

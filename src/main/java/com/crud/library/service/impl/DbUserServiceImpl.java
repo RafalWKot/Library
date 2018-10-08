@@ -1,6 +1,5 @@
 package com.crud.library.service.impl;
 
-
 import com.crud.library.domain.entities.User;
 import com.crud.library.exception.UserDuplicateException;
 import com.crud.library.exception.UserInvalidInputDataException;
@@ -12,9 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Transactional
 @Service
@@ -28,7 +27,6 @@ public class DbUserServiceImpl implements DbUserService {
 
     @Override
     public List<User> getUsers() {
-
         return userRepository.findAll();
     }
 
@@ -38,18 +36,12 @@ public class DbUserServiceImpl implements DbUserService {
     }
 
     @Override
-    public User getUserByPesel(String pesel) {
-        return userRepository.findByPesel(pesel).orElseThrow(UserNotFoundException::new);
-    }
-
-    @Override
     public List<User> getSearchedUser(User user) {
         return userRepository.findByFirstnameLikeAndAndLastnameLikeAndAndPeselLike(user.getFirstname(), user.getLastname(), user.getPesel());
     }
 
     @Override
     public User saveUser(User user) throws UserDuplicateException, UserInvalidInputDataException {
-
         if (userRepository.findByPesel(user.getPesel()).isPresent()) {
             throw new UserDuplicateException();
         }
@@ -62,17 +54,13 @@ public class DbUserServiceImpl implements DbUserService {
 
     @Override
     public void deleteUser(Long userId) {
+        Optional.ofNullable(userRepository.findById(userId)).orElseThrow(UserNotFoundException::new);
         userRepository.delete(userId);
     }
 
     @Override
     public void updateUser(User user) {
-        if (!userRepository.exists(user.getId())) {
-            throw new UserNotFoundException();
-        }
-        if (userRepository.findById(user.getId()).equals(user)) {
-            throw new UserInvalidInputDataException();
-        }
+        Optional.ofNullable(userRepository.findById(user.getId())).orElseThrow(UserNotFoundException::new);
         userRepository.save(user);
     }
 }

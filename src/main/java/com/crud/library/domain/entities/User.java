@@ -44,13 +44,6 @@ public class User {
         this.pesel = pesel;
     }
 
-    public User(Long id, String firstname, String lastname, String pesel) {
-        this.id =id;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.pesel = pesel;
-    }
-
     public void setRegistrationDate(LocalDateTime registrationDate) {
         this.registrationDate = registrationDate;
     }
