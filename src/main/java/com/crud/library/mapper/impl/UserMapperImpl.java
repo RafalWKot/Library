@@ -2,7 +2,7 @@ package com.crud.library.mapper.impl;
 
 import com.crud.library.domain.LocalDateTimeConverter;
 import com.crud.library.domain.entities.User;
-import com.crud.library.domainDTO.UserDto;
+import com.crud.library.domainDto.UserDto;
 import com.crud.library.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

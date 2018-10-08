@@ -1,4 +1,4 @@
-package com.crud.library.domainDTO;
+package com.crud.library.domainDto;
 
 import com.crud.library.domain.entities.Book;
 import lombok.AllArgsConstructor;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class BookCopyDTO {
+public class BookCopyDto {
     private Long id;
     private Book book;
     private String status;

@@ -1,15 +1,15 @@
 package com.crud.library.mapper;
 
 import com.crud.library.domain.entities.Book;
-import com.crud.library.domainDTO.BookDTO;
+import com.crud.library.domainDto.BookDto;
 
 import java.util.List;
 
 public interface BookMapper {
 
-    BookDTO mapToBookDTO(final Book book);
+    BookDto mapToBookDTO(final Book book);
 
-    Book mapToBook(final BookDTO bookDTO);
+    Book mapToBook(final BookDto bookDto);
 
-    List<BookDTO> mapToBooksDTO(final List<Book> books);
+    List<BookDto> mapToBooksDTO(final List<Book> books);
 }

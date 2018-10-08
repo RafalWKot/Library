@@ -1,11 +1,11 @@
-package com.crud.library.domainDTO;
+package com.crud.library.domainDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class BookDTO {
+public class BookDto {
     private  Long id;
     private  String title;
     private  String author;

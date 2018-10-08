@@ -1,7 +1,7 @@
 package com.crud.library.mapper;
 
 import com.crud.library.domain.entities.User;
-import com.crud.library.domainDTO.UserDto;
+import com.crud.library.domainDto.UserDto;
 
 import java.util.List;
 

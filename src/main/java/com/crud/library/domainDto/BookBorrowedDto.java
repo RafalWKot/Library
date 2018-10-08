@@ -1,4 +1,4 @@
-package com.crud.library.domainDTO;
+package com.crud.library.domainDto;
 
 import com.crud.library.domain.Request;
 import com.crud.library.domain.entities.BookCopy;

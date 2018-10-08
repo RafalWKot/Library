@@ -2,7 +2,7 @@ package com.crud.library.controller;
 
 
 import com.crud.library.domain.entities.BookCopy;
-import com.crud.library.domainDTO.BookCopyDTO;
+import com.crud.library.domainDto.BookCopyDto;
 import com.crud.library.mapper.BookCopyMapper;
 import com.crud.library.service.impl.DbBookCopyServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,23 +29,23 @@ public class BookCopyController {
     private DbBookCopyServiceImpl dbBookCopyService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<BookCopyDTO> getBookCopies() {
+    public List<BookCopyDto> getBookCopies() {
         return bookCopyMapper.mapToBookCopiesDto(dbBookCopyService.getBookCopies());
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-    public BookCopyDTO getBookCopyById(@PathVariable(value = "id") Long idBookCopy) {
+    public BookCopyDto getBookCopyById(@PathVariable(value = "id") Long idBookCopy) {
 
         return bookCopyMapper.mapToBookCopyDTO(dbBookCopyService.getBookCopy(idBookCopy));
     }
     @RequestMapping(method = RequestMethod.GET, value = "/idBook/{idBook}")
-    public  List<BookCopyDTO> getBookCopyByBookId(@PathVariable(value = "idBook") Long idBook) {
+    public  List<BookCopyDto> getBookCopyByBookId(@PathVariable(value = "idBook") Long idBook) {
         return bookCopyMapper.mapToBookCopiesDto(dbBookCopyService.getBookCopiesByBookId(idBook));
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes =  APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> addBookCopy(@RequestBody BookCopyDTO bookCopyDTO, UriComponentsBuilder uriComponentsBuilder) {
-        BookCopy bookCopy = dbBookCopyService.save(bookCopyMapper.mapToBookCopy(bookCopyDTO));
+    public ResponseEntity<?> addBookCopy(@RequestBody BookCopyDto bookCopyDto, UriComponentsBuilder uriComponentsBuilder) {
+        BookCopy bookCopy = dbBookCopyService.saveBookCopy(bookCopyMapper.mapToBookCopy(bookCopyDto));
         UriComponents uriComponents = uriComponentsBuilder.path("/v1/bookCopies/{id}").buildAndExpand(bookCopy.getId());
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(uriComponents.toUri());
@@ -53,13 +53,13 @@ public class BookCopyController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, consumes = APPLICATION_JSON_VALUE)
-    public void updateBookCopy(@RequestBody BookCopyDTO bookCopyDTO) {
-        dbBookCopyService.updateBookCopy(bookCopyMapper.mapToBookCopy(bookCopyDTO));
+    public void updateBookCopy(@RequestBody BookCopyDto bookCopyDto) {
+        dbBookCopyService.updateBookCopy(bookCopyMapper.mapToBookCopy(bookCopyDto));
     }
 
     @RequestMapping(method = RequestMethod.PUT, consumes = APPLICATION_JSON_VALUE, value = "/changeBookCopyStatus")
-    public void changeBookCopyStatus(@RequestBody BookCopyDTO bookCopyDTO) {
-        dbBookCopyService.changeStatus(bookCopyMapper.mapToBookCopy(bookCopyDTO));
+    public void changeBookCopyStatus(@RequestBody BookCopyDto bookCopyDto) {
+        dbBookCopyService.changeStatus(bookCopyMapper.mapToBookCopy(bookCopyDto));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")

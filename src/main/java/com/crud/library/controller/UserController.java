@@ -1,7 +1,7 @@
 package com.crud.library.controller;
 
 import com.crud.library.domain.entities.User;
-import com.crud.library.domainDTO.UserDto;
+import com.crud.library.domainDto.UserDto;
 import com.crud.library.mapper.UserMapper;
 import com.crud.library.service.DbUserService;
 import org.springframework.beans.factory.annotation.Autowired;

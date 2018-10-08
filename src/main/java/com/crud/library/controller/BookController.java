@@ -1,7 +1,7 @@
 package com.crud.library.controller;
 
 import com.crud.library.domain.entities.Book;
-import com.crud.library.domainDTO.BookDTO;
+import com.crud.library.domainDto.BookDto;
 import com.crud.library.mapper.BookMapper;
 import com.crud.library.service.DbBookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,26 +27,26 @@ public class BookController {
     BookMapper bookMapper;
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<BookDTO> getBooks() {
+    public List<BookDto> getBooks() {
         return bookMapper.mapToBooksDTO(dbBookService.getBooks());
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-    public BookDTO getBookById(@PathVariable("id") Long idBook) {
+    public BookDto getBookById(@PathVariable("id") Long idBook) {
         return bookMapper.mapToBookDTO(dbBookService.getBook(idBook));
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/searchedBooks")
-    public List<BookDTO> getBookBySearch(@RequestParam(required = false, defaultValue = "%") String title,
-                                                   @RequestParam(required = false, defaultValue = "%") String author,
-                                                   @RequestParam(required = false, defaultValue = "%") String pubYear) {
+    public List<BookDto> getBookBySearch(@RequestParam(required = false, defaultValue = "%") String title,
+                                         @RequestParam(required = false, defaultValue = "%") String author,
+                                         @RequestParam(required = false, defaultValue = "%") String pubYear) {
         Book searchBook = new Book(title, author, pubYear);
         return bookMapper.mapToBooksDTO(dbBookService.getSearchedBook(searchBook));
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> addNewBook(@RequestBody BookDTO bookDTO, UriComponentsBuilder uriComponentsBuilder) {
-        Book book = dbBookService.saveBook(bookMapper.mapToBook(bookDTO));
+    public ResponseEntity<?> addNewBook(@RequestBody BookDto bookDto, UriComponentsBuilder uriComponentsBuilder) {
+        Book book = dbBookService.saveBook(bookMapper.mapToBook(bookDto));
         UriComponents uriComponents = uriComponentsBuilder.path("/v1/books/{id}").buildAndExpand(book.getId());
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(uriComponents.toUri());
@@ -54,8 +54,8 @@ public class BookController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, consumes = APPLICATION_JSON_VALUE)
-    public void updateBook(@RequestBody BookDTO bookDTO) {
-        dbBookService.updateBook(bookMapper.mapToBook(bookDTO));
+    public void updateBook(@RequestBody BookDto bookDto) {
+        dbBookService.updateBook(bookMapper.mapToBook(bookDto));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")

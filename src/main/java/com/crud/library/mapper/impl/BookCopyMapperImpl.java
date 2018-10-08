@@ -1,7 +1,7 @@
 package com.crud.library.mapper.impl;
 
 import com.crud.library.domain.entities.BookCopy;
-import com.crud.library.domainDTO.BookCopyDTO;
+import com.crud.library.domainDto.BookCopyDto;
 import com.crud.library.mapper.BookCopyMapper;
 import org.springframework.stereotype.Component;
 
@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 public class BookCopyMapperImpl implements BookCopyMapper {
 
     @Override
-    public BookCopyDTO mapToBookCopyDTO(BookCopy bookCopy) {
-        return new BookCopyDTO(
+    public BookCopyDto mapToBookCopyDTO(BookCopy bookCopy) {
+        return new BookCopyDto(
                 bookCopy.getId(),
                 bookCopy.getBook(),
                 bookCopy.getStatus()
@@ -21,18 +21,18 @@ public class BookCopyMapperImpl implements BookCopyMapper {
     }
 
     @Override
-    public BookCopy mapToBookCopy(BookCopyDTO bookCopyDTO) {
+    public BookCopy mapToBookCopy(BookCopyDto bookCopyDto) {
         return new BookCopy(
-                bookCopyDTO.getId(),
-                bookCopyDTO.getBook(),
-                bookCopyDTO.getStatus()
+                bookCopyDto.getId(),
+                bookCopyDto.getBook(),
+                bookCopyDto.getStatus()
         );
     }
 
     @Override
-    public List<BookCopyDTO> mapToBookCopiesDto(List<BookCopy> bookCopies) {
+    public List<BookCopyDto> mapToBookCopiesDto(List<BookCopy> bookCopies) {
         return bookCopies.stream()
-                .map(bookCopy -> new BookCopyDTO(
+                .map(bookCopy -> new BookCopyDto(
                         bookCopy.getId(),
                         bookCopy.getBook(),
                         bookCopy.getStatus()))

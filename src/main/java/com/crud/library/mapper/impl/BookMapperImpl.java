@@ -1,7 +1,7 @@
 package com.crud.library.mapper.impl;
 
 import com.crud.library.domain.entities.Book;
-import com.crud.library.domainDTO.BookDTO;
+import com.crud.library.domainDto.BookDto;
 import com.crud.library.mapper.BookMapper;
 import org.springframework.stereotype.Component;
 
@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 public class BookMapperImpl implements BookMapper {
 
     @Override
-    public BookDTO mapToBookDTO(Book book) {
-        return new BookDTO(
+    public BookDto mapToBookDTO(Book book) {
+        return new BookDto(
                 book.getId(),
                 book.getTitle(),
                 book.getAuthor(),
@@ -22,19 +22,19 @@ public class BookMapperImpl implements BookMapper {
     }
 
     @Override
-    public Book mapToBook(BookDTO bookDTO) {
+    public Book mapToBook(BookDto bookDto) {
         return new Book(
-                bookDTO.getId(),
-                bookDTO.getTitle(),
-                bookDTO.getAuthor(),
-                bookDTO.getPubYear()
+                bookDto.getId(),
+                bookDto.getTitle(),
+                bookDto.getAuthor(),
+                bookDto.getPubYear()
         );
     }
 
     @Override
-    public List<BookDTO> mapToBooksDTO(List<Book> books) {
+    public List<BookDto> mapToBooksDTO(List<Book> books) {
         return books.stream()
-                .map(t -> new BookDTO(
+                .map(t -> new BookDto(
                         t.getId(),
                         t.getTitle(),
                         t.getAuthor(),

@@ -1,7 +1,7 @@
 package com.crud.library.mapper;
 
 import com.crud.library.domain.entities.BookBorrowed;
-import com.crud.library.domainDTO.BookBorrowedDto;
+import com.crud.library.domainDto.BookBorrowedDto;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.crud.library.controller;
 
 import com.crud.library.domain.entities.BookBorrowed;
-import com.crud.library.domainDTO.BookBorrowedDto;
+import com.crud.library.domainDto.BookBorrowedDto;
 import com.crud.library.mapper.BookBorrowedMapper;
 import com.crud.library.service.DbBookBorrowedService;
 import org.springframework.beans.factory.annotation.Autowired;

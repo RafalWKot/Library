@@ -2,7 +2,7 @@ package com.crud.library.mapper.impl;
 
 import com.crud.library.domain.LocalDateTimeConverter;
 import com.crud.library.domain.entities.BookBorrowed;
-import com.crud.library.domainDTO.BookBorrowedDto;
+import com.crud.library.domainDto.BookBorrowedDto;
 import com.crud.library.mapper.BookBorrowedMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
