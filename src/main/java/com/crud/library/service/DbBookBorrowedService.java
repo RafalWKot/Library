@@ -1,6 +1,6 @@
 package com.crud.library.service;
 
-import com.crud.library.domain.Request;
+import com.crud.library.domain.RequestBookBorrowed;
 import com.crud.library.domain.entities.BookBorrowed;
 
 import java.util.List;
@@ -15,5 +15,5 @@ public interface DbBookBorrowedService {
 
     void deleteBookBorrowed(Long id);
 
-    void updateBookBorrowed(BookBorrowed bookBorrowed, Request request);
+    void updateBookBorrowed(BookBorrowed bookBorrowed, RequestBookBorrowed requestBookBorrowed);
 }

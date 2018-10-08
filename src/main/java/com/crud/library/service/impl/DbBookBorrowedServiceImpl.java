@@ -1,11 +1,11 @@
 package com.crud.library.service.impl;
 
 import com.crud.library.domain.BookCopyStatus;
-import com.crud.library.domain.Request;
+import com.crud.library.domain.RequestBookBorrowed;
 import com.crud.library.domain.entities.BookBorrowed;
+import com.crud.library.domain.entities.BookCopy;
 import com.crud.library.exception.BookBorrowedInvalidInputDataException;
 import com.crud.library.exception.BookBorrowedNotFoundException;
-import com.crud.library.exception.BookCopyNotFoundException;
 import com.crud.library.exception.BorrowBookNotAvailableException;
 import com.crud.library.repository.BookBorrowedRepository;
 import com.crud.library.repository.BookCopyRepository;
@@ -15,9 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Transactional
 @Service
@@ -53,42 +53,28 @@ public class DbBookBorrowedServiceImpl implements DbBookBorrowedService {
         return bookBorrowedRepository.save(bookBorrowed);
     }
 
-//    @Override
-//    public void returnBook(BookBorrowed bookBorrowed) {
-//        if (!bookBorrowedRepository.exists(bookBorrowed.getId())) {
-//            throw new BookBorrowedNotFoundException();
-//        }
-//        if (bookBorrowedRepository.findById(bookBorrowed.getId()).get().getReturnDate() != null ||
-//                bookBorrowedRepository.findById(bookBorrowed.getId()).get().getBookCopy().getStatus() != BookCopyStatus.Borrowed.text()) {
-//            throw new BookBorrowedInvalidInputDataException();
-//        }
-//
-
     @Override
-    public void deleteBookBorrowed(Long id) {
-        bookBorrowedRepository.delete(id);
+    public void deleteBookBorrowed(Long idBookBorrowed) {
+        Optional.ofNullable(bookBorrowedRepository.findById(idBookBorrowed)).orElseThrow(BookBorrowedNotFoundException::new);
+        bookBorrowedRepository.delete(idBookBorrowed);
     }
 
     @Override
-    public void updateBookBorrowed(BookBorrowed bookBorrowed, Request request) {
+    public void updateBookBorrowed(BookBorrowed bookBorrowed, RequestBookBorrowed requestBookBorrowed) {
         BookBorrowed bookBorrowedFromDb = bookBorrowedRepository.findById(bookBorrowed.getId()).orElseThrow(BookBorrowedNotFoundException::new);
-
-        if (!bookBorrowed.equals(bookBorrowedFromDb)) {
-            throw new BookBorrowedInvalidInputDataException();
-        }
-
-        if (request == Request.Return) {
-            returnBook(bookBorrowed);
-        } else if (request == Request.Renew) {
-            renewBook(bookBorrowed);
+        if (requestBookBorrowed == RequestBookBorrowed.Return
+                && bookCopiesEquals(bookBorrowedFromDb.getBookCopy(), bookBorrowed.getBookCopy())) {
+            returnBook(bookBorrowedFromDb);
+        } else if (requestBookBorrowed == RequestBookBorrowed.Renew
+                && bookCopiesEquals(bookBorrowedFromDb.getBookCopy(), bookBorrowed.getBookCopy())) {
+            renewBook(bookBorrowed, bookBorrowedFromDb);
         } else {
             bookBorrowedRepository.save(bookBorrowed);
         }
     }
 
-    private boolean renewBook(BookBorrowed bookBorrowed) {
-        if (bookCopyRepository.findById(bookBorrowed.getBookCopy().getId()).orElseThrow(BookCopyNotFoundException::new)
-                .getStatus().equals(BookCopyStatus.Booked)) {
+    private boolean renewBook(BookBorrowed bookBorrowed, BookBorrowed bookBorrowedFromDb) {
+        if (bookBorrowedFromDb.getBookCopy().getStatus().equals(BookCopyStatus.Booked)) {
             return false;
         } else {
             bookBorrowedRepository.save(bookBorrowed);
@@ -96,19 +82,20 @@ public class DbBookBorrowedServiceImpl implements DbBookBorrowedService {
         }
     }
 
-    private void returnBook(BookBorrowed bookBorrowed) {
-        BookBorrowed bookBorrowedFromDb = bookBorrowedRepository.findById(bookBorrowed.getId())
-                .orElseThrow(BookBorrowedNotFoundException::new);
+    private void returnBook(BookBorrowed bookBorrowedFromDb) {
+        bookBorrowedFromDb.setReturnDate(LocalDateTime.now());
+        bookBorrowedFromDb.getBookCopy().setStatus(BookCopyStatus.Free.text());
+        bookBorrowedFromDb.setPenaltyFee(penaltyFee.calculatePenaltyFee(
+                bookBorrowedFromDb.getPlannedReturnDate(),
+                bookBorrowedFromDb.getReturnDate()));
+        bookBorrowedRepository.save(bookBorrowedFromDb);
+    }
 
-        if (!bookBorrowed.equals(bookBorrowedFromDb)) {
+    boolean bookCopiesEquals(BookCopy bookCopyFromDb, BookCopy bookCopyFromDto) throws BookBorrowedInvalidInputDataException {
+        if (bookCopyFromDto.equals(bookCopyFromDb)) {
+            return true;
+        } else {
             throw new BookBorrowedInvalidInputDataException();
         }
-
-        bookBorrowed.setReturnDate(LocalDateTime.now());
-        bookBorrowed.getBookCopy().setStatus(BookCopyStatus.Free.text());
-        bookBorrowed.setPenaltyFee(penaltyFee.calculatePenaltyFee(
-                bookBorrowed.getBorrowDate(),
-                bookBorrowed.getReturnDate()
-        ));
     }
 }

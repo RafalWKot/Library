@@ -10,6 +10,8 @@ public interface DbBookCopyService {
 
     List<BookCopy> getBookCopiesByBookId(Long idBook);
 
+    List<BookCopy> getBookCopyAvailableToBorro(Long idBook, String bookCopyStatus);
+
     BookCopy getBookCopy(Long idBookCopy);
 
     BookCopy saveBookCopy(BookCopy bookCopy);
@@ -18,5 +20,4 @@ public interface DbBookCopyService {
 
     void updateBookCopy(BookCopy bookCopy);
 
-    void changeStatus(BookCopy bookCopy);
 }

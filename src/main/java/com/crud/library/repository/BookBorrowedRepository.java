@@ -25,4 +25,5 @@ public interface BookBorrowedRepository extends CrudRepository<BookBorrowed, Lon
 
     @Override
     boolean exists(Long aLong);
+
 }

@@ -11,9 +11,9 @@ import java.time.Period;
 public class PenaltyFeeImpl implements PenaltyFee {
 
     @Override
-    public BigDecimal calculatePenaltyFee(LocalDateTime borrowDate, LocalDateTime returnDate) {
+    public BigDecimal calculatePenaltyFee(LocalDateTime plannedReturnDate, LocalDateTime returnDate) {
         return BigDecimal.valueOf(Period
-                                .between(borrowDate.toLocalDate(), returnDate.toLocalDate())
+                                .between(plannedReturnDate.toLocalDate(), returnDate.toLocalDate())
                                 .getDays())
                         .movePointLeft(2)
                         .multiply((PENALTYVALUE));

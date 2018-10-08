@@ -1,6 +1,6 @@
 package com.crud.library.domainDto;
 
-import com.crud.library.domain.Request;
+import com.crud.library.domain.RequestBookBorrowed;
 import com.crud.library.domain.entities.BookCopy;
 import com.crud.library.domain.entities.User;
 import lombok.AllArgsConstructor;
@@ -19,7 +19,7 @@ public class BookBorrowedDto {
     private Timestamp plannedReturnDate;
     private Timestamp returnDate;
 
-    private Request request;
+    private RequestBookBorrowed requestBookBorrowed;
 
     public BookBorrowedDto(Long id, BookCopy bookCopy, User user, Timestamp borrowDate, Timestamp plannedReturnDate, Timestamp returnDate) {
         this.id = id;

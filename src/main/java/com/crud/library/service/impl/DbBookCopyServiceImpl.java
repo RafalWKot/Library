@@ -40,6 +40,11 @@ public class DbBookCopyServiceImpl implements DbBookCopyService {
     }
 
     @Override
+    public List<BookCopy> getBookCopyAvailableToBorro(Long idBook, String bookCopyStatus) {
+        return bookCopyRepository.findBookCopyByBook_IdAndStatusIsLike(idBook, bookCopyStatus);
+    }
+
+    @Override
     public BookCopy saveBookCopy(BookCopy bookCopy) {
         if (dbBookService.getBook(bookCopy.getBook().getId()).equals(bookCopy.getBook())) {
             throw new BookCopyDuplicateException();
@@ -59,12 +64,4 @@ public class DbBookCopyServiceImpl implements DbBookCopyService {
         bookCopyRepository.save(bookCopy);
     }
 
-    @Override
-    public void changeStatus(BookCopy bookCopy) {    // do zmiany, nie wiem czy jest potrzebne, może wystarczy update
-        if (!(bookCopyRepository.exists(bookCopy.getId()) &&
-                bookCopy.getBook().equals(dbBookService.getBook(bookCopy.getBook().getId())))) {
-            throw new BookCopyInvalidInputDataException();
-        }
-        bookCopyRepository.save(bookCopy);
-    }
 }

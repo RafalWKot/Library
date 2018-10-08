@@ -46,8 +46,8 @@ public class BookBorrowedController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, consumes = APPLICATION_JSON_VALUE)
-    public void updateBookBorrowed(@RequestBody BookBorrowedDto bookBorrowedDto, UriComponentsBuilder uri)  {
-        dbBookBorrowedService.updateBookBorrowed(bookBorrowedMapper.mapToBookBorrowed(bookBorrowedDto), bookBorrowedDto.getRequest());
+    public void updateBookBorrowed(@RequestBody BookBorrowedDto bookBorrowedDto)  {
+        dbBookBorrowedService.updateBookBorrowed(bookBorrowedMapper.mapToBookBorrowed(bookBorrowedDto), bookBorrowedDto.getRequestBookBorrowed());
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")

@@ -6,5 +6,5 @@ import java.time.LocalDateTime;
 public interface PenaltyFee {
     BigDecimal PENALTYVALUE = BigDecimal.valueOf(2.0);
 
-    BigDecimal calculatePenaltyFee(LocalDateTime borrowDate, LocalDateTime returnDate);
+    BigDecimal calculatePenaltyFee(LocalDateTime plannedReturnDate, LocalDateTime returnDate);
 }

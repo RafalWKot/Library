@@ -25,4 +25,5 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     @Override
     boolean exists(Long aLong);
+
 }

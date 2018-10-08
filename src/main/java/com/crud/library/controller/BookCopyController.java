@@ -1,6 +1,7 @@
 package com.crud.library.controller;
 
 
+import com.crud.library.domain.BookCopyStatus;
 import com.crud.library.domain.entities.BookCopy;
 import com.crud.library.domainDto.BookCopyDto;
 import com.crud.library.mapper.BookCopyMapper;
@@ -33,14 +34,19 @@ public class BookCopyController {
         return bookCopyMapper.mapToBookCopiesDto(dbBookCopyService.getBookCopies());
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-    public BookCopyDto getBookCopyById(@PathVariable(value = "id") Long idBookCopy) {
+    @RequestMapping(method = RequestMethod.GET, value = "/{idBookCopy}")
+    public BookCopyDto getBookCopyById(@PathVariable(value = "idBookCopy") Long idBookCopy) {
 
         return bookCopyMapper.mapToBookCopyDTO(dbBookCopyService.getBookCopy(idBookCopy));
     }
     @RequestMapping(method = RequestMethod.GET, value = "/idBook/{idBook}")
     public  List<BookCopyDto> getBookCopyByBookId(@PathVariable(value = "idBook") Long idBook) {
         return bookCopyMapper.mapToBookCopiesDto(dbBookCopyService.getBookCopiesByBookId(idBook));
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/booksAvailable/{idBook}")
+    public List<BookCopyDto> getBookCopyAvailableToBorrow(@PathVariable(value = "idBook") Long idBook) {
+        return bookCopyMapper.mapToBookCopiesDto(dbBookCopyService.getBookCopyAvailableToBorro(idBook, BookCopyStatus.Free.text()));
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes =  APPLICATION_JSON_VALUE)
@@ -55,11 +61,6 @@ public class BookCopyController {
     @RequestMapping(method = RequestMethod.PUT, consumes = APPLICATION_JSON_VALUE)
     public void updateBookCopy(@RequestBody BookCopyDto bookCopyDto) {
         dbBookCopyService.updateBookCopy(bookCopyMapper.mapToBookCopy(bookCopyDto));
-    }
-
-    @RequestMapping(method = RequestMethod.PUT, consumes = APPLICATION_JSON_VALUE, value = "/changeBookCopyStatus")
-    public void changeBookCopyStatus(@RequestBody BookCopyDto bookCopyDto) {
-        dbBookCopyService.changeStatus(bookCopyMapper.mapToBookCopy(bookCopyDto));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")

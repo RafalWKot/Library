@@ -19,6 +19,8 @@ public interface BookCopyRepository extends CrudRepository<BookCopy, Long> {
 
     Optional<BookCopy> findById(Long bookCopyId);
 
+    List<BookCopy> findBookCopyByBook_IdAndStatusIsLike(Long idBook, String bookCopyStatus);
+
     @Override
     BookCopy save(BookCopy bookCopy);
 
@@ -27,4 +29,6 @@ public interface BookCopyRepository extends CrudRepository<BookCopy, Long> {
 
     @Override
     boolean exists(Long aLong);
+
+
 }
