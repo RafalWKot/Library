@@ -4,7 +4,6 @@ import com.crud.library.domain.entities.BookCopy;
 
 import java.util.List;
 
-
 public interface DbBookCopyService {
 
     List<BookCopy> getBookCopies();
@@ -13,7 +12,7 @@ public interface DbBookCopyService {
 
     BookCopy getBookCopy(Long idBookCopy);
 
-    BookCopy save(BookCopy bookCopy);
+    BookCopy saveBookCopy(BookCopy bookCopy);
 
     void deleteBookCopy(Long id);
 

@@ -19,7 +19,7 @@ public class BookCopy {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne    //(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "book_id")
     private Book book;
 

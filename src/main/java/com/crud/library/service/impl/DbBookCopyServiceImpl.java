@@ -1,9 +1,9 @@
 package com.crud.library.service.impl;
 
 import com.crud.library.domain.entities.BookCopy;
+import com.crud.library.exception.BookCopyDuplicateException;
 import com.crud.library.exception.BookCopyInvalidInputDataException;
 import com.crud.library.exception.BookCopyNotFoundException;
-import com.crud.library.exception.BookNotFoundException;
 import com.crud.library.repository.BookCopyRepository;
 import com.crud.library.service.DbBookCopyService;
 import com.crud.library.service.DbBookService;
@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Transactional
 @Service
@@ -39,31 +40,27 @@ public class DbBookCopyServiceImpl implements DbBookCopyService {
     }
 
     @Override
-    public BookCopy save(BookCopy bookCopy) {
-        if (!dbBookService.getBook(bookCopy.getBook().getId()).equals(bookCopy.getBook())) {
-            throw new BookNotFoundException();
+    public BookCopy saveBookCopy(BookCopy bookCopy) {
+        if (dbBookService.getBook(bookCopy.getBook().getId()).equals(bookCopy.getBook())) {
+            throw new BookCopyDuplicateException();
         }
         return bookCopyRepository.save(bookCopy);
     }
 
     @Override
     public void deleteBookCopy(Long idBookCopy) {
+        Optional.ofNullable(bookCopyRepository.findById(idBookCopy)).orElseThrow(BookCopyNotFoundException::new);
         bookCopyRepository.delete(idBookCopy);
     }
 
     @Override
     public void updateBookCopy(BookCopy bookCopy) {
-        if (!bookCopyRepository.exists(bookCopy.getId())) {
-            throw new BookCopyNotFoundException();
-        }
-        if (bookCopyRepository.findById(bookCopy.getId()).equals(bookCopy)) {
-            throw new BookCopyInvalidInputDataException();
-        }
+        Optional.ofNullable(bookCopyRepository.findById(bookCopy.getId())).orElseThrow(BookCopyNotFoundException::new);
         bookCopyRepository.save(bookCopy);
     }
 
     @Override
-    public void changeStatus(BookCopy bookCopy) {
+    public void changeStatus(BookCopy bookCopy) {    // do zmiany, nie wiem czy jest potrzebne, może wystarczy update
         if (!(bookCopyRepository.exists(bookCopy.getId()) &&
                 bookCopy.getBook().equals(dbBookService.getBook(bookCopy.getBook().getId())))) {
             throw new BookCopyInvalidInputDataException();
