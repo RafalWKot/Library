@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,15 +17,15 @@ public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private  Long id;
+    private Long id;
 
     @Column
     @NotNull
-    private  String title;
+    private String title;
 
     @Column
     @NotNull
-    private  String author;
+    private String author;
 
     @Column
     @NotNull

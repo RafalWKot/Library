@@ -44,7 +44,6 @@ public class UserController {
         return userMapper.mapToUsersDto(dbUserService.getSearchedUser(searchedUser));
     }
 
-
     @RequestMapping(method = RequestMethod.POST, consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<?> addUser(@RequestBody UserDto userDto, UriComponentsBuilder uriComponentsBuilder)  {
         User user = dbUserService.saveUser(userMapper.mapToUser(userDto));
