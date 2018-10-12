@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class UserMapperImpl implements UserMapper {
 
     @Autowired
-    LocalDateTimeConverter localDateTimeConverter;
+    private LocalDateTimeConverter localDateTimeConverter;  //zmienić na wstrzykiwanie przez konstruktor
 
     @Override
     public List<UserDto> mapToUsersDto(List<User> users) {
@@ -52,12 +52,13 @@ public class UserMapperImpl implements UserMapper {
     }
 
     @Override
-    public UserDto mapToUserDto(final User user) {
+    public UserDto mapToUserDto(final User user) {  //service.getValue()
         return new UserDto(
                 user.getId(),
                 user.getFirstname(),
                 user.getLastname(),
                 user.getPesel(),
+                //(kwota)service.getValue()   //kwota zaległości jaka wynika z późnego oddania książek
                 localDateTimeConverter.convertToDatabaseColumn(user.getRegistrationDate()));
     }
 }

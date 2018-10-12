@@ -7,6 +7,7 @@ import com.crud.library.domainDto.BookCopyDto;
 import com.crud.library.mapper.BookCopyMapper;
 import com.crud.library.service.impl.DbBookCopyServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,8 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 @RequestMapping(value = "/v1/bookCopies")
 public class BookCopyController {
 
+    @Value("${my.server.address}")
+    private String serverAddress;
 
     @Autowired
     private BookCopyMapper bookCopyMapper;
@@ -50,9 +53,10 @@ public class BookCopyController {
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes =  APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> addBookCopy(@RequestBody BookCopyDto bookCopyDto, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<?> addBookCopy(@RequestBody BookCopyDto bookCopyDto) {
         BookCopy bookCopy = dbBookCopyService.saveBookCopy(bookCopyMapper.mapToBookCopy(bookCopyDto));
-        UriComponents uriComponents = uriComponentsBuilder.path("/v1/bookCopies/{id}").buildAndExpand(bookCopy.getId());
+        UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.newInstance();
+        UriComponents uriComponents = uriComponentsBuilder.path(serverAddress + "/v1/bookCopies/{id}").buildAndExpand(bookCopy.getId());
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(uriComponents.toUri());
         return new ResponseEntity<>(headers,HttpStatus.CREATED);

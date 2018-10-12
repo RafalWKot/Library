@@ -4,6 +4,7 @@ import com.crud.library.domain.entities.BookCopy;
 import com.crud.library.exception.BookCopyDuplicateException;
 import com.crud.library.exception.BookCopyInvalidInputDataException;
 import com.crud.library.exception.BookCopyNotFoundException;
+import com.crud.library.exception.BookNotFoundException;
 import com.crud.library.repository.BookCopyRepository;
 import com.crud.library.service.DbBookCopyService;
 import com.crud.library.service.DbBookService;
@@ -46,8 +47,8 @@ public class DbBookCopyServiceImpl implements DbBookCopyService {
 
     @Override
     public BookCopy saveBookCopy(BookCopy bookCopy) {
-        if (dbBookService.getBook(bookCopy.getBook().getId()).equals(bookCopy.getBook())) {
-            throw new BookCopyDuplicateException();
+        if (!dbBookService.getBook(bookCopy.getBook().getId()).equals(bookCopy.getBook())) {
+            throw new BookNotFoundException();
         }
         return bookCopyRepository.save(bookCopy);
     }

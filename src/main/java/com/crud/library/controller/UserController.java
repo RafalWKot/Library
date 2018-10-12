@@ -5,6 +5,7 @@ import com.crud.library.domainDto.UserDto;
 import com.crud.library.mapper.UserMapper;
 import com.crud.library.service.DbUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,9 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping(value = "/v1/users")
 public class UserController {
+
+    @Value("${my.server.address}")
+    private String serverAddress;
 
     @Autowired
     DbUserService dbUserService;
@@ -45,9 +49,10 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> addUser(@RequestBody UserDto userDto, UriComponentsBuilder uriComponentsBuilder)  {
+    public ResponseEntity<?> addUser(@RequestBody UserDto userDto)  {
         User user = dbUserService.saveUser(userMapper.mapToUser(userDto));
-        UriComponents uriComponents = uriComponentsBuilder.path("/v1/users/{id}").buildAndExpand(user.getId());
+        UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.newInstance();
+        UriComponents uriComponents = uriComponentsBuilder.path(serverAddress + "/v1/users/{id}").buildAndExpand(user.getId());
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation((uriComponents.toUri()));
         return new ResponseEntity<>(headers, HttpStatus.CREATED);

@@ -5,6 +5,7 @@ import com.crud.library.domainDto.BookBorrowedDto;
 import com.crud.library.mapper.BookBorrowedMapper;
 import com.crud.library.service.DbBookBorrowedService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,9 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping(value = "/v1/booksBorrowed")
 public class BookBorrowedController {
+
+    @Value("${my.server.address}")
+    private String serverAddress;
 
     @Autowired
     BookBorrowedMapper bookBorrowedMapper;
@@ -37,9 +41,10 @@ public class BookBorrowedController {
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = APPLICATION_JSON_VALUE)
-        public ResponseEntity<?> addBookBorrowed(@RequestBody BookBorrowedDto bookBorrowedDto, UriComponentsBuilder uri) {
+        public ResponseEntity<?> addBookBorrowed(@RequestBody BookBorrowedDto bookBorrowedDto) {
             BookBorrowed bookBorrowed = dbBookBorrowedService.borrowBook(bookBorrowedMapper.mapToBookBorrowed(bookBorrowedDto));
-            UriComponents uriComponents = uri.path("/v1/bookBorrowed/{id}").buildAndExpand(bookBorrowed.getId());
+            UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.newInstance();
+            UriComponents uriComponents = uriComponentsBuilder.path(serverAddress + "/v1/bookBorrowed/{id}").buildAndExpand(bookBorrowed.getId());
             HttpHeaders headers = new HttpHeaders();
             headers.setLocation(uriComponents.toUri());
             return new ResponseEntity<>(headers, HttpStatus.CREATED);
