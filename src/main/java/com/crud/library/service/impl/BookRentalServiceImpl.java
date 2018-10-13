@@ -9,7 +9,7 @@ import com.crud.library.exception.BookRentalNotFoundException;
 import com.crud.library.exception.BookRentalNotAvailableException;
 import com.crud.library.repository.BookRentalRepository;
 import com.crud.library.service.BookRentalService;
-import com.crud.library.service.PenaltyFee;
+import com.crud.library.service.PenaltyFeeCalculator;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -23,11 +23,11 @@ public class BookRentalServiceImpl implements BookRentalService {
 
     private final BookRentalRepository bookRentalRepository;
 
-    private final PenaltyFee penaltyFee;
+    private final PenaltyFeeCalculator penaltyFeeCalculator;
 
-    public BookRentalServiceImpl(BookRentalRepository bookRentalRepository, PenaltyFee penaltyFee) {
+    public BookRentalServiceImpl(BookRentalRepository bookRentalRepository, PenaltyFeeCalculator penaltyFeeCalculator) {
         this.bookRentalRepository = bookRentalRepository;
-        this.penaltyFee = penaltyFee;
+        this.penaltyFeeCalculator = penaltyFeeCalculator;
     }
 
     @Override
@@ -83,7 +83,7 @@ public class BookRentalServiceImpl implements BookRentalService {
     private void returnBook(BookRental bookRentalFromDb) {
         bookRentalFromDb.setReturnDate(LocalDateTime.now());
         bookRentalFromDb.getBookCopy().setStatus(BookCopyStatus.Free.text());
-        bookRentalFromDb.setPenaltyFee(penaltyFee.calculatePenaltyFee(
+        bookRentalFromDb.setPenaltyFee(penaltyFeeCalculator.calculatePenaltyFee(
                 bookRentalFromDb.getPlannedReturnDate(),
                 bookRentalFromDb.getReturnDate()));
         bookRentalRepository.save(bookRentalFromDb);
