@@ -1,5 +1,6 @@
 package com.crud.library.service;
 
+import com.crud.library.domain.BookCopyStatus;
 import com.crud.library.domain.entities.BookCopy;
 
 import java.util.List;
@@ -10,7 +11,7 @@ public interface DbBookCopyService {
 
     List<BookCopy> getBookCopiesByBookId(Long idBook);
 
-    List<BookCopy> getBookCopyAvailableToBorro(Long idBook, String bookCopyStatus);
+    List<BookCopy> getBookCopyAvailableToBorrow(Long idBook, BookCopyStatus bookCopyStatus);
 
     BookCopy getBookCopy(Long idBookCopy);
 

@@ -1,5 +1,6 @@
 package com.crud.library.service.impl;
 
+import com.crud.library.domain.BookCopyStatus;
 import com.crud.library.domain.entities.BookCopy;
 import com.crud.library.exception.BookCopyNotFoundException;
 import com.crud.library.exception.BookNotFoundException;
@@ -41,8 +42,8 @@ public class DbBookCopyServiceImpl implements DbBookCopyService {
     }
 
     @Override
-    public List<BookCopy> getBookCopyAvailableToBorro(Long idBook, String bookCopyStatus) {
-        return bookCopyRepository.findBookCopyByBook_IdAndStatusIsLike(idBook, bookCopyStatus);
+    public List<BookCopy> getBookCopyAvailableToBorrow(Long idBook, BookCopyStatus bookCopyStatus) {
+        return bookCopyRepository.findBookCopyByBook_IdAndStatusIsLike(idBook, bookCopyStatus.text());
     }
 
     @Override

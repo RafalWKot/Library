@@ -51,7 +51,7 @@ public class BookCopyController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/booksAvailable/{idBook}")
     public List<BookCopyDto> getBookCopyAvailableToBorrow(@PathVariable(value = "idBook") Long idBook) {
-        return bookCopyMapper.mapToBookCopiesDto(dbBookCopyService.getBookCopyAvailableToBorro(idBook, BookCopyStatus.Free.text()));
+        return bookCopyMapper.mapToBookCopiesDto(dbBookCopyService.getBookCopyAvailableToBorrow(idBook, BookCopyStatus.Free));
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes =  APPLICATION_JSON_VALUE)
