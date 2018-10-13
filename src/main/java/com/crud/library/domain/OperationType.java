@@ -1,7 +1,6 @@
 package com.crud.library.domain;
 
-public enum RequestBookBorrowed {
+public enum OperationType {
     Return,
     Renew
-
 }

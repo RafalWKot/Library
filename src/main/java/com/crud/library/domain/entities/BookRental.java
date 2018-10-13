@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Entity
-public class BookBorrowed {
+public class BookRental {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -50,7 +50,7 @@ public class BookBorrowed {
     @Column
     private BigDecimal penaltyFeeRemain;
 
-    public BookBorrowed(Long id, BookCopy bookCopy, User user, LocalDateTime borrowDate, LocalDateTime plannedReturnDate, LocalDateTime returnDate) {
+    public BookRental(Long id, BookCopy bookCopy, User user, LocalDateTime borrowDate, LocalDateTime plannedReturnDate, LocalDateTime returnDate) {
         this.id = id;
         this.bookCopy = bookCopy;
         this.user = user;

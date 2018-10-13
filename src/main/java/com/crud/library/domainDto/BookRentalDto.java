@@ -1,6 +1,6 @@
 package com.crud.library.domainDto;
 
-import com.crud.library.domain.RequestBookBorrowed;
+import com.crud.library.domain.OperationType;
 import com.crud.library.domain.entities.BookCopy;
 import com.crud.library.domain.entities.User;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 
 @Getter
 @AllArgsConstructor
-public class BookBorrowedDto {
+public class BookRentalDto {
 
     private Long id;
     private BookCopy bookCopy;
@@ -19,9 +19,9 @@ public class BookBorrowedDto {
     private Timestamp plannedReturnDate;
     private Timestamp returnDate;
 
-    private RequestBookBorrowed requestBookBorrowed;
+    private OperationType operationType;
 
-    public BookBorrowedDto(Long id, BookCopy bookCopy, User user, Timestamp borrowDate, Timestamp plannedReturnDate, Timestamp returnDate) {
+    public BookRentalDto(Long id, BookCopy bookCopy, User user, Timestamp borrowDate, Timestamp plannedReturnDate, Timestamp returnDate) {
         this.id = id;
         this.bookCopy = bookCopy;
         this.user = user;
