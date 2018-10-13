@@ -6,7 +6,6 @@ import com.crud.library.domain.entities.BookCopy;
 import com.crud.library.domainDto.BookCopyDto;
 import com.crud.library.mapper.BookCopyMapper;
 import com.crud.library.service.impl.DbBookCopyServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,14 +22,17 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 @RequestMapping(value = "/v1/bookCopies")
 public class BookCopyController {
 
+    private final BookCopyMapper bookCopyMapper;
+
+    private final DbBookCopyServiceImpl dbBookCopyService;
+
+    public BookCopyController(BookCopyMapper bookCopyMapper, DbBookCopyServiceImpl dbBookCopyService) {
+        this.bookCopyMapper = bookCopyMapper;
+        this.dbBookCopyService = dbBookCopyService;
+    }
+
     @Value("${my.server.address}")
     private String serverAddress;
-
-    @Autowired
-    private BookCopyMapper bookCopyMapper;
-
-    @Autowired
-    private DbBookCopyServiceImpl dbBookCopyService;
 
     @RequestMapping(method = RequestMethod.GET)
     public List<BookCopyDto> getBookCopies() {

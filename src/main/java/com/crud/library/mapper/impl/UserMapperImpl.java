@@ -4,7 +4,6 @@ import com.crud.library.domain.LocalDateTimeConverter;
 import com.crud.library.domain.entities.User;
 import com.crud.library.domainDto.UserDto;
 import com.crud.library.mapper.UserMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,8 +12,12 @@ import java.util.stream.Collectors;
 @Component
 public class UserMapperImpl implements UserMapper {
 
-    @Autowired
-    private LocalDateTimeConverter localDateTimeConverter;  //zmienić na wstrzykiwanie przez konstruktor
+
+    private final LocalDateTimeConverter localDateTimeConverter;
+
+    public UserMapperImpl(LocalDateTimeConverter localDateTimeConverter) {
+        this.localDateTimeConverter = localDateTimeConverter;
+    }
 
     @Override
     public List<UserDto> mapToUsersDto(List<User> users) {
@@ -27,18 +30,6 @@ public class UserMapperImpl implements UserMapper {
                         localDateTimeConverter.convertToDatabaseColumn(t.getRegistrationDate())))
                 .collect(Collectors.toList()
                 );
-    }
-
-    @Override
-    public List<User> mapToUsers(List<UserDto> users) {
-        return users.stream()
-                .map(t -> new User(
-                        t.getId(),
-                        t.getFirstname(),
-                        t.getLastname(),
-                        t.getPesel(),
-                        localDateTimeConverter.convertToEntityAttribute(t.getRegistrationDate())))
-                .collect(Collectors.toList());
     }
 
     @Override

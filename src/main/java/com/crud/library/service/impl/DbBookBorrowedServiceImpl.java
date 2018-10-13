@@ -8,10 +8,8 @@ import com.crud.library.exception.BookBorrowedInvalidInputDataException;
 import com.crud.library.exception.BookBorrowedNotFoundException;
 import com.crud.library.exception.BorrowBookNotAvailableException;
 import com.crud.library.repository.BookBorrowedRepository;
-import com.crud.library.repository.BookCopyRepository;
 import com.crud.library.service.DbBookBorrowedService;
 import com.crud.library.service.PenaltyFee;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -23,14 +21,14 @@ import java.util.Optional;
 @Service
 public class DbBookBorrowedServiceImpl implements DbBookBorrowedService {
 
-    @Autowired
-    BookBorrowedRepository bookBorrowedRepository;
+    private final BookBorrowedRepository bookBorrowedRepository;
 
-    @Autowired
-    BookCopyRepository bookCopyRepository;
+    private final PenaltyFee penaltyFee;
 
-    @Autowired
-    PenaltyFee penaltyFee;
+    public DbBookBorrowedServiceImpl(BookBorrowedRepository bookBorrowedRepository, PenaltyFee penaltyFee) {
+        this.bookBorrowedRepository = bookBorrowedRepository;
+        this.penaltyFee = penaltyFee;
+    }
 
     @Override
     public List<BookBorrowed> getBookBorrowed() {
@@ -74,7 +72,7 @@ public class DbBookBorrowedServiceImpl implements DbBookBorrowedService {
     }
 
     private boolean renewBook(BookBorrowed bookBorrowed, BookBorrowed bookBorrowedFromDb) {
-        if (bookBorrowedFromDb.getBookCopy().getStatus().equals(BookCopyStatus.Booked)) {
+        if (bookBorrowedFromDb.getBookCopy().getStatus().equals(BookCopyStatus.Booked.text())) {
             return false;
         } else {
             bookBorrowedRepository.save(bookBorrowed);

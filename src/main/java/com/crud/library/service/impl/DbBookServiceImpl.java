@@ -5,7 +5,6 @@ import com.crud.library.exception.BookDuplicateException;
 import com.crud.library.exception.BookNotFoundException;
 import com.crud.library.repository.BookRepository;
 import com.crud.library.service.DbBookService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -16,8 +15,11 @@ import java.util.Optional;
 @Service
 public class DbBookServiceImpl implements DbBookService {
 
-    @Autowired
-    BookRepository bookRepository;
+    private final BookRepository bookRepository;
+
+    public DbBookServiceImpl(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
+    }
 
     @Override
     public List<Book> getBooks() {

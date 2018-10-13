@@ -21,6 +21,7 @@ public interface BookCopyRepository extends CrudRepository<BookCopy, Long> {
 
     List<BookCopy> findBookCopyByBook_IdAndStatusIsLike(Long idBook, String bookCopyStatus);
 
+    @SuppressWarnings("ALL")
     @Override
     BookCopy save(BookCopy bookCopy);
 

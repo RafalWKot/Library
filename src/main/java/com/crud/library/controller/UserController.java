@@ -4,7 +4,6 @@ import com.crud.library.domain.entities.User;
 import com.crud.library.domainDto.UserDto;
 import com.crud.library.mapper.UserMapper;
 import com.crud.library.service.DbUserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,14 +20,17 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 @RequestMapping(value = "/v1/users")
 public class UserController {
 
+    private final DbUserService dbUserService;
+
+    private final UserMapper userMapper;
+
+    public UserController(DbUserService dbUserService, UserMapper userMapper) {
+        this.dbUserService = dbUserService;
+        this.userMapper = userMapper;
+    }
+
     @Value("${my.server.address}")
     private String serverAddress;
-
-    @Autowired
-    DbUserService dbUserService;
-
-    @Autowired
-    UserMapper userMapper;
 
     @RequestMapping(method = RequestMethod.GET)
     public List<UserDto> getUsers() {

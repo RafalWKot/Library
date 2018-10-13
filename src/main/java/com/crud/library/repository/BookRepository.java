@@ -18,8 +18,12 @@ public interface BookRepository extends CrudRepository<Book, Long> {
 
     List<Book> findBookByTitleLikeAndAuthorLikeAndPubYearLike(String title, String author, String pubYear);
 
+    @SuppressWarnings("ALL")
     @Override
     Book save(Book book);
+
+    @Override
+    <S extends Book> Iterable<S> save(Iterable<S> entities);
 
     @Override
     void delete(Long aLong);

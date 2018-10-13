@@ -4,7 +4,6 @@ import com.crud.library.domain.LocalDateTimeConverter;
 import com.crud.library.domain.entities.BookBorrowed;
 import com.crud.library.domainDto.BookBorrowedDto;
 import com.crud.library.mapper.BookBorrowedMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,9 +12,11 @@ import java.util.stream.Collectors;
 @Component
 public class BookBorrowedMapperImpl implements BookBorrowedMapper {
 
+   private final LocalDateTimeConverter localDateTimeConverter;
 
-    @Autowired
-    LocalDateTimeConverter localDateTimeConverter;
+    public BookBorrowedMapperImpl(LocalDateTimeConverter localDateTimeConverter) {
+        this.localDateTimeConverter = localDateTimeConverter;
+    }
 
     @Override
     public BookBorrowed mapToBookBorrowed(BookBorrowedDto bookBorrowedDto) {

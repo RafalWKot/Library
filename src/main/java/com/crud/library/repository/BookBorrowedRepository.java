@@ -17,6 +17,7 @@ public interface BookBorrowedRepository extends CrudRepository<BookBorrowed, Lon
 
     Optional<BookBorrowed> findById(Long id);
 
+    @SuppressWarnings("ALL")
     @Override
     BookBorrowed save(BookBorrowed bookBorrowed);
 

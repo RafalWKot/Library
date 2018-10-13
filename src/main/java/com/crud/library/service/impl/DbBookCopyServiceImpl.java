@@ -1,14 +1,11 @@
 package com.crud.library.service.impl;
 
 import com.crud.library.domain.entities.BookCopy;
-import com.crud.library.exception.BookCopyDuplicateException;
-import com.crud.library.exception.BookCopyInvalidInputDataException;
 import com.crud.library.exception.BookCopyNotFoundException;
 import com.crud.library.exception.BookNotFoundException;
 import com.crud.library.repository.BookCopyRepository;
 import com.crud.library.service.DbBookCopyService;
 import com.crud.library.service.DbBookService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -19,11 +16,14 @@ import java.util.Optional;
 @Service
 public class DbBookCopyServiceImpl implements DbBookCopyService {
 
-    @Autowired
-    BookCopyRepository bookCopyRepository;
+    private final BookCopyRepository bookCopyRepository;
 
-    @Autowired
-    DbBookService dbBookService;
+    private final DbBookService dbBookService;
+
+    public DbBookCopyServiceImpl(BookCopyRepository bookCopyRepository, DbBookService dbBookService) {
+        this.bookCopyRepository = bookCopyRepository;
+        this.dbBookService = dbBookService;
+    }
 
     @Override
     public List<BookCopy> getBookCopies() {

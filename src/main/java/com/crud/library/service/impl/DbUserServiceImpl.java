@@ -7,7 +7,6 @@ import com.crud.library.exception.UserNotFoundException;
 import com.crud.library.repository.UserRepository;
 import com.crud.library.service.DbUserService;
 import com.crud.library.validation.UserValidation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -19,11 +18,14 @@ import java.util.Optional;
 @Service
 public class DbUserServiceImpl implements DbUserService {
 
-    @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    UserValidation userValidation;
+    private final UserValidation userValidation;
+
+    public DbUserServiceImpl(UserRepository userRepository, UserValidation userValidation) {
+        this.userRepository = userRepository;
+        this.userValidation = userValidation;
+    }
 
     @Override
     public List<User> getUsers() {
@@ -37,7 +39,7 @@ public class DbUserServiceImpl implements DbUserService {
 
     @Override
     public List<User> getSearchedUser(User user) {
-        return userRepository.findByFirstnameLikeAndAndLastnameLikeAndAndPeselLike(user.getFirstname(), user.getLastname(), user.getPesel());
+        return userRepository.findByFirstnameLikeAndLastnameLikeAndPeselLike(user.getFirstname(), user.getLastname(), user.getPesel());
     }
 
     @Override

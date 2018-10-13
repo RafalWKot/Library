@@ -63,10 +63,6 @@ public class BookBorrowed {
         this.borrowDate = borrowDate;
     }
 
-    public void setPlannedReturnDate(LocalDateTime plannedReturnDate) {
-        this.plannedReturnDate = plannedReturnDate;
-    }
-
     public void setReturnDate(LocalDateTime returnDate) {
         this.returnDate = returnDate;
     }

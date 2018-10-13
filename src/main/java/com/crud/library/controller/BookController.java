@@ -4,7 +4,6 @@ import com.crud.library.domain.entities.Book;
 import com.crud.library.domainDto.BookDto;
 import com.crud.library.mapper.BookMapper;
 import com.crud.library.service.DbBookService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,14 +20,17 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 @RequestMapping(value = "/v1/books")
 public class BookController {
 
+    private final DbBookService dbBookService;
+
+    private final BookMapper bookMapper;
+
+    public BookController(DbBookService dbBookService, BookMapper bookMapper) {
+        this.dbBookService = dbBookService;
+        this.bookMapper = bookMapper;
+    }
+
     @Value("${my.server.address}")
     private String serverAddress;
-
-    @Autowired
-    DbBookService dbBookService;
-
-    @Autowired
-    BookMapper bookMapper;
 
     @RequestMapping(method = RequestMethod.GET)
     public List<BookDto> getBooks() {
