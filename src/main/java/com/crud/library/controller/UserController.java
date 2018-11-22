@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -21,12 +22,13 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 public class UserController {
 
     private final DbUserService dbUserService;
-
     private final UserMapper userMapper;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserController(DbUserService dbUserService, UserMapper userMapper) {
+    public UserController(DbUserService dbUserService, UserMapper userMapper, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.dbUserService = dbUserService;
         this.userMapper = userMapper;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Value("${my.server.address}")
@@ -52,6 +54,7 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.POST, consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<?> addUser(@RequestBody UserDto userDto)  {
+        userDto.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
         User user = dbUserService.saveUser(userMapper.mapToUser(userDto));
         UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.newInstance();
         UriComponents uriComponents = uriComponentsBuilder.path(serverAddress + "/v1/users/{id}").buildAndExpand(user.getId());

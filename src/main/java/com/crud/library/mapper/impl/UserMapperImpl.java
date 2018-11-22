@@ -22,12 +22,12 @@ public class UserMapperImpl implements UserMapper {
     @Override
     public List<UserDto> mapToUsersDto(List<User> users) {
         return users.stream()
-                .map(t -> new UserDto(
-                        t.getId(),
-                        t.getFirstname(),
-                        t.getLastname(),
-                        t.getPesel(),
-                        localDateTimeConverter.convertToDatabaseColumn(t.getRegistrationDate())))
+                .map(user -> new UserDto(
+                        user.getId(),
+                        user.getFirstname(),
+                        user.getLastname(),
+                        user.getPesel(),
+                        localDateTimeConverter.convertToDatabaseColumn(user.getRegistrationDate())))
                 .collect(Collectors.toList()
                 );
     }
@@ -39,6 +39,8 @@ public class UserMapperImpl implements UserMapper {
                 userDto.getFirstname(),
                 userDto.getLastname(),
                 userDto.getPesel(),
+                userDto.getUsername(),
+                userDto.getPassword(),
                 localDateTimeConverter.convertToEntityAttribute(userDto.getRegistrationDate()));
     }
 

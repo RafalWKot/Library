@@ -18,8 +18,8 @@ import java.time.LocalDateTime;
 @Entity
 public class User {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column
@@ -35,8 +35,24 @@ public class User {
     private String pesel;
 
     @Column
+    @NotNull
+    private String username;
+
+    @Column
+    @NotNull
+    private String password;
+
+    @Column
     @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime registrationDate;
+
+    public User(String firstname, String lastname, String pesel, String username, String password) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.pesel = pesel;
+        this.username = username;
+        this.password = password;
+    }
 
     public User(String firstname, String lastname, String pesel) {
         this.firstname = firstname;
