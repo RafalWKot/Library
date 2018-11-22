@@ -69,8 +69,8 @@ public class BookCopyController {
         dbBookCopyService.updateBookCopy(bookCopyMapper.mapToBookCopy(bookCopyDto));
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
-    public void deleteBookCopy(@PathVariable(value = "id") Long idBookCopy) {
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{idBookCopy}")
+    public void deleteBookCopy(@PathVariable(value = "idBookCopy") Long idBookCopy) {
         dbBookCopyService.deleteBookCopy(idBookCopy);
     }
 }
