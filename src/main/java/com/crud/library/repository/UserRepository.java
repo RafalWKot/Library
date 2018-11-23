@@ -17,6 +17,8 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     List<User> findByFirstnameLikeAndLastnameLikeAndPeselLike(String firstname, String lastname, String pesel);
 
+    Optional<User> findByUsername(String username);
+
     @SuppressWarnings("ALL")
     @Override
     User save(User user);

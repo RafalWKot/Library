@@ -52,8 +52,9 @@ public class UserController {
         return userMapper.mapToUsersDto(dbUserService.getSearchedUser(searchedUser));
     }
 
-    @RequestMapping(method = RequestMethod.POST, consumes = APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.POST, consumes = APPLICATION_JSON_VALUE, value="/sign_up")
     public ResponseEntity<?> addUser(@RequestBody UserDto userDto)  {
+        System.out.println(userDto.getUsername());
         userDto.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
         User user = dbUserService.saveUser(userMapper.mapToUser(userDto));
         UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.newInstance();
