@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 
 @Getter
 @AllArgsConstructor
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class UserDto {
     final private Long id;
     final private String firstname;

@@ -27,6 +27,8 @@ public class UserMapperImpl implements UserMapper {
                         user.getFirstname(),
                         user.getLastname(),
                         user.getPesel(),
+                        null,
+                        null,
                         localDateTimeConverter.convertToDatabaseColumn(user.getRegistrationDate())))
                 .collect(Collectors.toList()
                 );
@@ -51,6 +53,8 @@ public class UserMapperImpl implements UserMapper {
                 user.getFirstname(),
                 user.getLastname(),
                 user.getPesel(),
+                null,
+                null,
                 //(kwota)service.getValue()   //kwota zaległości jaka wynika z późnego oddania książek
                 localDateTimeConverter.convertToDatabaseColumn(user.getRegistrationDate()));
     }
